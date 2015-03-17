@@ -1,6 +1,6 @@
 name: blunt
 version: 0.0.0
-cabal-version: >=1.22
+cabal-version: >=1.10
 build-type: Simple
 license: MIT
 license-file: LICENSE.md
@@ -19,9 +19,9 @@ library
         Blunt
     build-depends:
         base ==4.*,
-        bytestring ==0.10.*,
-        http-types ==0.8.*,
-        wai ==3.*,
+        bytestring -any,
+        http-types -any,
+        wai -any,
         warp ==3.*
     default-language: Haskell2010
     hs-source-dirs: library
