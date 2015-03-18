@@ -27,6 +27,21 @@ library
     hs-source-dirs: library
     ghc-options: -Wall
 
+    -- pointfree
+    build-depends:
+        array,
+        containers,
+        haskell-src-exts,
+        transformers
+    other-modules:
+        Pointfree
+        Plugin.Pl.Common
+        Plugin.Pl.Parser
+        Plugin.Pl.PrettyPrinter
+        Plugin.Pl.Optimize
+        Plugin.Pl.Rules
+        Plugin.Pl.Transform
+
 executable blunt
     main-is: Main.hs
     build-depends:
