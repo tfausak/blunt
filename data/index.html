@@ -11,13 +11,13 @@
     <dl>
       <dt>Input</dt>
       <dd>
-        <pre><code autofocus contenteditable id="input">-- Edit me!
+        <pre><code autofocus class="haskell" contenteditable id="input">-- Edit me!
 sum xs = foldr (+) 0 xs</code></pre>
       </dd>
 
       <dt>Output</dt>
       <dd>
-        <pre><code id="output"></code></pre>
+        <pre><code class="haskell" id="output"></code></pre>
       </dd>
     </dl>
 
@@ -45,5 +45,9 @@ sum xs = foldr (+) 0 xs</code></pre>
         input.focus();
       }());
     </script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/default.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+    <script>window.hljs.initHighlightingOnLoad();</script>
   </body>
 </html>
