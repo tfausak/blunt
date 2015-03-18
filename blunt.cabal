@@ -12,6 +12,9 @@ category: Web
 data-files:
     index.html
 data-dir: data
+extra-source-files:
+    CHANGELOG.md
+    README.md
 
 source-repository head
     type: git
