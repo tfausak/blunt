@@ -35,7 +35,14 @@ main = run 8080 $ \ request respond -> do
                 , "        var output = document.getElementById('output');"
                 , ""
                 , "        input.oninput = function (event) {"
-                , "          output.value = input.value;"
+                , "          var request = new XMLHttpRequest();"
+                , "          request.onreadystatechange = function () {"
+                , "            if (request.readyState === 4 && request.status === 200) {"
+                , "              output.value = request.response;"
+                , "            }"
+                , "          };"
+                , "          request.open('GET', '/pointfree?input=' + encodeURIComponent(input.value));"
+                , "          request.send();"
                 , "        };"
                 , "      }());"
                 , "    </script>"
@@ -51,6 +58,6 @@ main = run 8080 $ \ request respond -> do
                     body = case maybeOutput of
                         Just output -> pack output
                         Nothing -> fromStrict input
-                in  responseLBS ok200 [] body
+                in  responseLBS ok200 [("Content-Type", "text/plain; charset=utf-8")] body
             _ -> responseLBS notFound404 [] ""
     respond response
