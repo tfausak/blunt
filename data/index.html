@@ -6,8 +6,8 @@
   </head>
 
   <body>
-    <input id="input" autofocus>
-    <input id="output" readonly>
+    <pre><code contenteditable id="input">sum xs = foldr (+) 0 xs</code></pre>
+    <pre><code id="output"></code></pre>
 
     <script>
       'use strict';
@@ -16,17 +16,20 @@
         var input = document.getElementById('input');
         var output = document.getElementById('output');
 
-        input.oninput = function (event) {
+        input.oninput = function (_event) {
           var request = new XMLHttpRequest();
 
           request.onreadystatechange = function () {
             if (request.readyState === 4 && request.status === 200) {
-              output.value = request.response;
+              output.textContent = request.response;
             }
           };
-          request.open('GET', '/pointfree?input=' + encodeURIComponent(input.value));
+          request.open('GET',
+            '/pointfree?input=' + encodeURIComponent(input.textContent));
           request.send();
         };
+
+        input.dispatchEvent(new Event('input'));
       }());
     </script>
   </body>
