@@ -15,7 +15,33 @@ main = run 8080 $ \ request respond -> do
     let method = requestMethod request
         path = pathInfo request
         response = case (method, path) of
-            ("GET", []) -> responseLBS ok200 [("Content-Type", "text/html")] "TODO"
+            ("GET", []) -> responseLBS ok200 [("Content-Type", "text/html; charset=utf-8")] $ pack $ unlines
+                [ "<!doctype html>"
+                , ""
+                , "<html>"
+                , "  <head>"
+                , "    <title>Pointfree</title>"
+                , "  </head>"
+                , ""
+                , "  <body>"
+                , "    <input id='input' autofocus>"
+                , "    <input id='output' readonly>"
+                , ""
+                , "    <script>"
+                , "      'use strict';"
+                , ""
+                , "      (function () {"
+                , "        var input = document.getElementById('input');"
+                , "        var output = document.getElementById('output');"
+                , ""
+                , "        input.oninput = function (event) {"
+                , "          output.value = input.value;"
+                , "        };"
+                , "      }());"
+                , "    </script>"
+                , "  </body>"
+                , "</html>"
+                ]
             ("GET", ["pointfree"]) ->
                 let params = queryString request
                     input = case lookup "input" params of
