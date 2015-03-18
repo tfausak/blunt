@@ -2,9 +2,9 @@
 
 <html>
   <head>
-    <title>Blunt</title>
+    <meta name="viewport" content="initial-scale = 1, width = device-width">
 
-    <meta content="initial-scale=1,width=device-width" name="viewport">
+    <title>Blunt</title>
   </head>
 
   <body>
@@ -13,13 +13,18 @@
     <dl>
       <dt>Input</dt>
       <dd>
-        <pre><code autofocus contenteditable id="input">-- Edit me!
-sum xs = foldr (+) 0 xs</code></pre>
+        <input
+          id="input"
+          placeholder="sum xs = foldr (+) 0 xs"
+          autofocus>
       </dd>
 
       <dt>Output</dt>
       <dd>
-        <pre><code id="output"></code></pre>
+        <input
+          id="output"
+          placeholder="sum = foldr (+) 0"
+          readonly>
       </dd>
     </dl>
 
@@ -35,16 +40,13 @@ sum xs = foldr (+) 0 xs</code></pre>
 
           request.onreadystatechange = function () {
             if (request.readyState === 4 && request.status === 200) {
-              output.textContent = request.response;
+              output.value = request.response;
             }
           };
           request.open('GET',
-            '/pointfree?input=' + encodeURIComponent(input.textContent));
+            '/pointfree?input=' + encodeURIComponent(input.value));
           request.send();
         };
-
-        input.dispatchEvent(new Event('input'));
-        input.focus();
       }());
     </script>
   </body>
