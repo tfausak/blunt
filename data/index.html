@@ -6,8 +6,20 @@
   </head>
 
   <body>
-    <pre><code contenteditable id="input">sum xs = foldr (+) 0 xs</code></pre>
-    <pre><code id="output"></code></pre>
+    <h1>Blunt</h1>
+
+    <dl>
+      <dt>Input</dt>
+      <dd>
+        <pre><code autofocus contenteditable id="input">-- Edit me!
+sum xs = foldr (+) 0 xs</code></pre>
+      </dd>
+
+      <dt>Output</dt>
+      <dd>
+        <pre><code id="output"></code></pre>
+      </dd>
+    </dl>
 
     <script>
       'use strict';
@@ -30,6 +42,7 @@
         };
 
         input.dispatchEvent(new Event('input'));
+        input.focus();
       }());
     </script>
   </body>
