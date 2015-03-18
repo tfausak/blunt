@@ -20,7 +20,7 @@ main = run 8080 $ \ request respond -> do
                 , ""
                 , "<html>"
                 , "  <head>"
-                , "    <title>Pointfree</title>"
+                , "    <title>Blunt</title>"
                 , "  </head>"
                 , ""
                 , "  <body>"
