@@ -1,5 +1,7 @@
 # Change log
 
+## v0.0.2 (2015-03-18)
+
 -   Added a rudimentary user interface.
 -   Moved HTML into a separate file.
 
