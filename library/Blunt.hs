@@ -30,7 +30,7 @@ main = run 8080 $ \ request respond -> do
                     input = case lookup "input" params of
                         Just (Just param) -> param
                         _ -> ""
-                maybeOutput <- pf (unpack input)
+                maybeOutput <- safePointfree (unpack input)
                 let body = case maybeOutput of
                         Just output -> pack output
                         Nothing -> fromStrict input
@@ -38,7 +38,7 @@ main = run 8080 $ \ request respond -> do
             _ -> return $ responseLBS notFound404 [] ""
     respond response
 
-pf :: String -> IO (Maybe String)
-pf = handle handler . evaluate . pointfree' where
+safePointfree :: String -> IO (Maybe String)
+safePointfree = handle handler . evaluate . pointfree' where
     handler :: SomeException -> IO (Maybe String)
     handler _ = return Nothing
