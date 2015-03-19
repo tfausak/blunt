@@ -1,5 +1,7 @@
 # Change log
 
+-   Prevent `pointfree'` from throwing errors during a request.
+
 ## v0.0.2 (2015-03-18)
 
 -   Added a rudimentary user interface.
