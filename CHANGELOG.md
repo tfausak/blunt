@@ -1,5 +1,7 @@
 # Change log
 
+## v0.0.3 (2015-03-19)
+
 -   Prevent `pointfree'` from throwing errors during a request.
 
 ## v0.0.2 (2015-03-18)
