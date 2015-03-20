@@ -1,5 +1,7 @@
 # Change log
 
+## v0.0.9 (2015-03-20)
+
 -   Updated to list all intermediate steps instead of only the final result.
 -   Optimized text input for mobile devices.
 
