@@ -1,6 +1,10 @@
 # Change log
 
-## v0.0.05 (2015-03-19)
+## v0.0.6 (2015-03-19)
+
+-   Switch from Bitbucket to GitHub.
+
+## v0.0.5 (2015-03-19)
 
 -   Constraint versions of `pointfree` dependencies.
 
