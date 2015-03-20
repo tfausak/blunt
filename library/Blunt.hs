@@ -7,12 +7,16 @@ import Data.ByteString.Char8 (unpack)
 import Data.ByteString.Lazy (fromStrict)
 import Data.ByteString.Lazy.Char8 (pack)
 import Network.HTTP.Types (notFound404, ok200)
-import Network.Wai (queryString, pathInfo, requestMethod, responseLBS)
+import Network.Wai (Application, queryString, pathInfo, requestMethod,
+    responseLBS)
 import Network.Wai.Handler.Warp (run)
 import Pointfree (pointfree')
 
 main :: IO ()
-main = run 8080 $ \ request respond -> do
+main = run 8080 application
+
+application :: Application
+application request respond = do
     let method = requestMethod request
         path = pathInfo request
     response <- case (method, path) of
