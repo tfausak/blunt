@@ -1,5 +1,7 @@
 # Change log
 
+-   Optimized text input for mobile devices.
+
 ## v0.0.8 (2015-03-20)
 
 -   Created a simple stylesheet.
