@@ -9,11 +9,11 @@ import Data.ByteString.Lazy.Char8 (pack)
 import Network.HTTP.Types (notFound404, ok200)
 import Network.Wai (Application, Request, Response, queryString, pathInfo,
     requestMethod, responseLBS)
-import Network.Wai.Handler.Warp (run)
+import Network.Wai.Handler.Warp (runEnv)
 import Pointfree (pointfree')
 
 main :: IO ()
-main = run 8080 application
+main = runEnv 8080 application
 
 application :: Application
 application request respondWith = do
