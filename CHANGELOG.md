@@ -1,5 +1,9 @@
 # Change log
 
+## v0.0.05 (2015-03-19)
+
+-   Constraint versions of `pointfree` dependencies.
+
 ## v0.0.4 (2015-03-19)
 
 -   Allow setting the port with the `PORT` environment variable.
