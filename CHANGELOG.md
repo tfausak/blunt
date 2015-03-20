@@ -1,5 +1,9 @@
 # Change log
 
+## v0.0.8 (2015-03-20)
+
+-   Created a simple stylesheet.
+
 ## v0.0.7 (2015-03-19)
 
 -   Fixed link in Hackage documentation.
