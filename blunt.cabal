@@ -7,7 +7,7 @@ license-file: LICENSE.md
 maintainer: Taylor Fausak <taylor@fausak.me>
 synopsis: Point-free Haskell as a service.
 description:
-    https://bitbucket.org/taylorfausak/blunt
+    https://github.com/tfausak/blunt
 category: Web
 extra-source-files:
     CHANGELOG.md
@@ -15,7 +15,7 @@ extra-source-files:
 
 source-repository head
     type: git
-    location: https://bitbucket.org/taylorfausak/blunt
+    location: https://github.com/tfausak/blunt
 
 library
     exposed-modules:
