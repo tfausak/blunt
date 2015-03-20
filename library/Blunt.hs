@@ -77,7 +77,7 @@ html = unlines
     , "    <dl>"
     , "      <dt>Input</dt>"
     , "      <dd>"
-    , "        <input id='input' placeholder='sum xs = foldr (+) 0 xs' autofocus>"
+    , "        <input id='input' placeholder='sum xs = foldr (+) 0 xs' autocapitalize='none' autocomplete='off' autocorrect='off' autofocus spellcheck='false'>"
     , "      </dd>"
     , ""
     , "      <dt>Output</dt>"
