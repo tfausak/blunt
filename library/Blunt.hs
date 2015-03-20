@@ -82,6 +82,12 @@ html = unlines
     , "      </dd>"
     , "    </dl>"
     , ""
+    , "    <p>"
+    , "      <a href='https://github.com/tfausak/blunt'>"
+    , "        https://github.com/tfausak/blunt"
+    , "      </a>"
+    , "    </p>"
+    , ""
     , "    <script>"
     , js
     , "    </script>"
