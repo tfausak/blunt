@@ -59,8 +59,8 @@ $ echo '{}' > package.json
 $ echo 'web: ./blunt' > Procfile
 $ cp dist/build/blunt/blunt .
 $ git add package.json Procfile blunt
-$ git commit --allow-empty-message
-$ git push heroku deploy:master
+$ git commit --allow-empty-message --message ''
+$ git push --force heroku deploy:master
 $ git checkout master
 $ git branch -D deploy
 ```
