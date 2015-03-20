@@ -19,11 +19,25 @@
 
 <hr>
 
+Blunt is a web front end to the [pointfree][] library. While you can install
+and run it locally, there's no real reason to prefer it over the `pointfree`
+executable. Instead, use the hosted version on Heroku:
+<https://evening-thicket-5270.herokuapp.com>.
+
 ## Install
 
 ``` sh
 $ cabal update
 $ cabal install 'blunt ==0.0.*'
+```
+
+## Use
+
+``` sh
+$ blunt
+# http://localhost:8080
+$ env PORT=8888 blunt
+# http://localhost:8888
 ```
 
 ## Develop
@@ -41,10 +55,14 @@ $ cabal install
 ``` sh
 $ heroku create
 $ git checkout -b deploy
+$ echo '{}' > package.json
 $ echo 'web: ./blunt' > Procfile
 $ cp dist/build/blunt/blunt .
-$ touch requirements.txt
-$ git add Procfile blunt requirements.txt
-$ git commit -m v0.0.7
+$ git add package.json Procfile blunt
+$ git commit --allow-empty-message
 $ git push heroku deploy:master
+$ git checkout master
+$ git branch -D deploy
 ```
+
+[pointfree]: http://hackage.haskell.org/package/pointfree
