@@ -7,8 +7,8 @@ import Data.ByteString.Char8 (unpack)
 import Data.ByteString.Lazy (fromStrict)
 import Data.ByteString.Lazy.Char8 (pack)
 import Network.HTTP.Types (notFound404, ok200)
-import Network.Wai (Application, queryString, pathInfo, requestMethod,
-    responseLBS)
+import Network.Wai (Application, Request, Response, queryString, pathInfo,
+    requestMethod, responseLBS)
 import Network.Wai.Handler.Warp (run)
 import Pointfree (pointfree')
 
@@ -16,26 +16,40 @@ main :: IO ()
 main = run 8080 application
 
 application :: Application
-application request respond = do
-    let method = requestMethod request
-        path = pathInfo request
-    response <- case (method, path) of
-            ("GET", []) -> return $ responseLBS
-                ok200
-                [("Content-Type", "text/html; charset=utf-8")]
-                (pack html)
-            ("GET", ["pointfree"]) -> do
-                let params = queryString request
-                    input = case lookup "input" params of
-                        Just (Just param) -> param
-                        _ -> ""
-                maybeOutput <- safePointfree (unpack input)
-                let body = case maybeOutput of
-                        Just output -> pack output
-                        Nothing -> fromStrict input
-                return $ responseLBS ok200 [("Content-Type", "text/plain; charset=utf-8")] body
-            _ -> return $ responseLBS notFound404 [] ""
-    respond response
+application request respondWith = do
+    let action = route request
+    response <- action request
+    respondWith response
+
+type Action = Request -> IO Response
+
+route :: Request -> Action
+route request = case (requestMethod request, pathInfo request) of
+    ("GET", []) -> indexAction
+    ("GET", ["pointfree"]) -> pointfreeAction
+    _ -> notFoundAction
+
+indexAction :: Action
+indexAction _request = do
+    let headers = [("Content-Type", "text/html; charset=utf-8")]
+        body = pack html
+    return (responseLBS ok200 headers body)
+
+pointfreeAction :: Action
+pointfreeAction request = do
+    let params = queryString request
+        input = case lookup "input" params of
+            Just (Just param) -> param
+            _ -> ""
+    maybeOutput <- safePointfree (unpack input)
+    let headers = [("Content-Type", "text/plain; charset=utf-8")]
+        body = case maybeOutput of
+            Just output -> pack output
+            Nothing -> fromStrict input
+    return (responseLBS ok200 headers body)
+
+notFoundAction :: Action
+notFoundAction _request = return (responseLBS notFound404 [] "")
 
 safePointfree :: String -> IO (Maybe String)
 safePointfree = handle handler . evaluate . pointfree' where
