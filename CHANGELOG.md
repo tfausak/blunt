@@ -1,5 +1,10 @@
 # Change log
 
+## v0.0.4 (2015-03-19)
+
+-   Allow setting the port with the `PORT` environment variable.
+-   Took HTML out of its separate file.
+
 ## v0.0.3 (2015-03-19)
 
 -   Prevent `pointfree'` from throwing errors during a request.
