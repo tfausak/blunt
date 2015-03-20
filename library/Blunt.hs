@@ -10,7 +10,7 @@ import Network.HTTP.Types (notFound404, ok200)
 import Network.Wai (Application, Request, Response, queryString, pathInfo,
     requestMethod, responseLBS)
 import Network.Wai.Handler.Warp (runEnv)
-import Pointfree (pointfree')
+import Pointfree (pointfree)
 
 main :: IO ()
 main = runEnv 8080 application
@@ -41,20 +41,20 @@ pointfreeAction request = do
         input = case lookup "input" params of
             Just (Just param) -> param
             _ -> ""
-    maybeOutput <- safePointfree (unpack input)
+    output <- safePointfree (unpack input)
     let headers = [("Content-Type", "text/plain; charset=utf-8")]
-        body = case maybeOutput of
-            Just output -> pack output
-            Nothing -> fromStrict input
+        body = if null output
+            then fromStrict input
+            else pack (unlines output)
     return (responseLBS ok200 headers body)
 
 notFoundAction :: Action
 notFoundAction _request = return (responseLBS notFound404 [] "")
 
-safePointfree :: String -> IO (Maybe String)
-safePointfree = handle handler . evaluate . pointfree' where
-    handler :: SomeException -> IO (Maybe String)
-    handler _ = return Nothing
+safePointfree :: String -> IO [String]
+safePointfree = handle handler . evaluate . pointfree where
+    handler :: SomeException -> IO [String]
+    handler _ = return []
 
 html :: String
 html = unlines
@@ -82,7 +82,7 @@ html = unlines
     , ""
     , "      <dt>Output</dt>"
     , "      <dd>"
-    , "        <input id='output' placeholder='sum = foldr (+) 0' readonly>"
+    , "        <div id='output'></div>"
     , "      </dd>"
     , "    </dl>"
     , ""
@@ -137,15 +137,23 @@ css = unlines
     , "  margin: 0;"
     , "}"
     , ""
-    , "input {"
+    , "input, div {"
     , "  border: thin solid #e0e0e0;"
     , "  box-sizing: border-box;"
     , "  font-family: monospace;"
     , "  font-size: 1em;"
+    , "  width: 100%;"
+    , "}"
+    , ""
+    , "input {"
     , "  height: 3em;"
     , "  line-height: 3em;"
     , "  padding: 0 0.75em;"
-    , "  width: 100%;"
+    , "}"
+    , ""
+    , "div {"
+    , "  padding: 0.75em;"
+    , "  white-space: pre-wrap;"
     , "}"
     , ""
     , "p {"
@@ -167,7 +175,7 @@ js = unlines
     , ""
     , "    request.onreadystatechange = function () {"
     , "      if (request.readyState === 4 && request.status === 200) {"
-    , "        output.value = request.response;"
+    , "        output.textContent = request.response;"
     , "      }"
     , "    };"
     , "    request.open('GET', '/pointfree?input=' + encodeURIComponent(input.value));"
