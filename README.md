@@ -45,6 +45,6 @@ $ echo 'web: ./blunt' > Procfile
 $ cp dist/build/blunt/blunt .
 $ touch requirements.txt
 $ git add Procfile blunt requirements.txt
-$ git commit -m v0.0.6
+$ git commit -m v0.0.7
 $ git push heroku deploy:master
 ```

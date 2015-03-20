@@ -1,5 +1,9 @@
 # Change log
 
+## v0.0.7 (2015-03-19)
+
+-   Fixed link in Hackage documentation.
+
 ## v0.0.6 (2015-03-19)
 
 -   Switch from Bitbucket to GitHub.
