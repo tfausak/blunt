@@ -1,5 +1,7 @@
 # Change log
 
+-   Updated to list all intermediate steps instead of only the final result.
+
 ## v0.0.8 (2015-03-20)
 
 -   Created a simple stylesheet.
