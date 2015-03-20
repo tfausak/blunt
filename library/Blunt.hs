@@ -62,7 +62,7 @@ html = unlines
     , ""
     , "<html>"
     , "  <head>"
-    , "    <meta name='viewport' content='initial-scale = 1, width = device-width'>"
+    , "    <meta name='viewport' content='initial-scale = 1, maximum-scale = 1, minimum-scale = 1, width = device-width'>"
     , ""
     , "    <title>Blunt</title>"
     , ""
