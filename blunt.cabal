@@ -45,6 +45,17 @@ library
         Plugin.Pl.Rules
         Plugin.Pl.Transform
 
+    -- pointful
+    build-depends:
+        containers -any,
+        haskell-src -any,
+        mtl -any,
+        syb -any
+    other-modules:
+        Lambdabot.FixPrecedence
+        Lambdabot.Parser
+        Lambdabot.Pointful
+
 executable blunt
     main-is: Main.hs
     build-depends:
