@@ -1,5 +1,7 @@
 # Change log
 
+## v0.0.10 (2015-03-23)
+
 -   Added a pointful conversion of the expression as well.
 
 ## v0.0.9 (2015-03-20)
