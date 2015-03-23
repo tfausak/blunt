@@ -1,5 +1,7 @@
 # Change log
 
+-   Added dependency on Hackage version of pointful package.
+
 ## v0.0.10 (2015-03-23)
 
 -   Added a pointful conversion of the expression as well.
