@@ -22,7 +22,7 @@
 Blunt is a web front end to the [pointfree][] and [pointful][] libraries. While
 you can install and run it locally, there's no real reason to prefer it over
 the `pointfree` and `pointful` executables. Instead, use the hosted version:
-<https://evening-thicket-5270.herokuapp.com>.
+<https://blunt.herokuapp.com>.
 
 ## Install
 
