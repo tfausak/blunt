@@ -1,5 +1,7 @@
 # Change log
 
+-   Added permalinks by storing the input in the URL hash and reading it on
+    page load.
 -   Added dependency on Hackage version of pointful package.
 
 ## v0.0.10 (2015-03-23)
