@@ -5,7 +5,7 @@
 </h1>
 
 <p align="center">
-    Blunt makes Haskell expressions pointfree.
+    Blunt converts between pointfree and pointful Haskell expressions.
 </p>
 
 <p align="center">
@@ -19,9 +19,9 @@
 
 <hr>
 
-Blunt is a web front end to the [pointfree][] library. While you can install
-and run it locally, there's no real reason to prefer it over the `pointfree`
-executable. Instead, use the hosted version on Heroku:
+Blunt is a web front end to the [pointfree][] and [pointful][] libraries. While
+you can install and run it locally, there's no real reason to prefer it over
+the `pointfree` and `pointful` executables. Instead, use the hosted version:
 <https://evening-thicket-5270.herokuapp.com>.
 
 ## Install
@@ -36,6 +36,7 @@ $ cabal install 'blunt ==0.0.*'
 ``` sh
 $ blunt
 # http://localhost:8080
+
 $ env PORT=8888 blunt
 # http://localhost:8888
 ```
@@ -45,6 +46,7 @@ $ env PORT=8888 blunt
 ``` sh
 $ git clone https://github.com/tfausak/blunt
 $ cd blunt
+
 $ cabal sandbox init
 $ cabal install happy
 $ cabal install
@@ -61,8 +63,7 @@ $ cp dist/build/blunt/blunt .
 $ git add package.json Procfile blunt
 $ git commit --allow-empty-message --message ''
 $ git push --force heroku deploy:master
-$ git checkout master
-$ git branch -D deploy
 ```
 
 [pointfree]: http://hackage.haskell.org/package/pointfree
+[pointful]: http://hackage.haskell.org/package/pointful
