@@ -5,7 +5,6 @@ module Blunt where
 import Control.Exception (SomeException, evaluate, handle)
 import Data.Aeson (ToJSON, (.=), encode, object, toJSON)
 import Data.ByteString.Char8 (unpack)
-import Data.ByteString.Lazy (fromStrict)
 import Data.ByteString.Lazy.Char8 (pack)
 import Lambdabot.Pointful (pointful)
 import Network.HTTP.Types (notFound404, ok200)
@@ -29,8 +28,6 @@ route :: Request -> Action
 route request = case (requestMethod request, pathInfo request) of
     ("GET", []) -> indexAction
     ("GET", ["convert"]) -> convertAction
-    ("GET", ["pointfree"]) -> pointfreeAction
-    ("GET", ["pointful"]) -> pointfulAction
     _ -> notFoundAction
 
 indexAction :: Action
@@ -68,30 +65,6 @@ convertAction request = do
 
     let headers = [("Content-Type", "application/json")]
         body = encode result
-    return (responseLBS ok200 headers body)
-
-pointfreeAction :: Action
-pointfreeAction request = do
-    let params = queryString request
-        input = case lookup "input" params of
-            Just (Just param) -> param
-            _ -> ""
-    output <- safePointfree (unpack input)
-    let headers = [("Content-Type", "text/plain; charset=utf-8")]
-        body = if null output
-            then fromStrict input
-            else pack (unlines output)
-    return (responseLBS ok200 headers body)
-
-pointfulAction :: Action
-pointfulAction request = do
-    let params = queryString request
-        input = case lookup "input" params of
-            Just (Just param) -> param
-            _ -> ""
-        output = pointful (unpack input)
-    let headers = [("Content-Type", "text/plain; charset=utf-8")]
-        body = pack output
     return (responseLBS ok200 headers body)
 
 notFoundAction :: Action
