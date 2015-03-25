@@ -1,5 +1,7 @@
 # Change log
 
+## v0.0.12 (2015-03-25)
+
 -   Combined `/pointfree` and `/pointful` endpoints into `/convert`.
 
 ## v0.0.11 (2015-03-23)
