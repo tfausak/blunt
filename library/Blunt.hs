@@ -3,6 +3,7 @@
 module Blunt where
 
 import Control.Exception (SomeException, evaluate, handle)
+import Data.Aeson (ToJSON, (.=), encode, object, toJSON)
 import Data.ByteString.Char8 (unpack)
 import Data.ByteString.Lazy (fromStrict)
 import Data.ByteString.Lazy.Char8 (pack)
@@ -27,6 +28,7 @@ type Action = Request -> IO Response
 route :: Request -> Action
 route request = case (requestMethod request, pathInfo request) of
     ("GET", []) -> indexAction
+    ("GET", ["convert"]) -> convertAction
     ("GET", ["pointfree"]) -> pointfreeAction
     ("GET", ["pointful"]) -> pointfulAction
     _ -> notFoundAction
@@ -35,6 +37,37 @@ indexAction :: Action
 indexAction _request = do
     let headers = [("Content-Type", "text/html")]
         body = pack html
+    return (responseLBS ok200 headers body)
+
+data Result = Result
+    { resultInput :: String
+    , resultPointfree :: [String]
+    , resultPointful :: String
+    } deriving (Read, Show)
+
+instance ToJSON Result where
+    toJSON result = object
+        [ "input" .= resultInput result
+        , "pointfree" .= resultPointfree result
+        , "pointful" .= resultPointful result
+        ]
+
+convertAction :: Action
+convertAction request = do
+    let input = case lookup "input" (queryString request) of
+            Just (Just param) -> unpack param
+            _ -> ""
+
+    pf <- safePointfree input
+    let pl = pointful input
+        result = Result
+            { resultInput = input
+            , resultPointfree = pf
+            , resultPointful = pl
+            }
+
+    let headers = [("Content-Type", "application/json")]
+        body = encode result
     return (responseLBS ok200 headers body)
 
 pointfreeAction :: Action
