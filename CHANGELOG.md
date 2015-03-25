@@ -1,5 +1,7 @@
 # Change log
 
+-   Combined `/pointfree` and `/pointful` endpoints into `/convert`.
+
 ## v0.0.11 (2015-03-23)
 
 -   Added permalinks by storing the input in the URL hash and reading it on
