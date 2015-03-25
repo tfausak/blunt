@@ -55,14 +55,29 @@ $ cabal install
 ## Deploy
 
 ``` sh
-$ heroku create
-$ git checkout -b deploy
-$ echo '{}' > package.json
-$ echo 'web: ./blunt' > Procfile
-$ cp dist/build/blunt/blunt .
-$ git add package.json Procfile blunt
-$ git commit --allow-empty-message --message ''
-$ git push --force heroku deploy:master
+# Create a new app on Heroku using the Haskell on Heroku buildpack.
+$ heroku apps:create --buildpack https://github.com/mietek/haskell-on-heroku
+
+# Let Halcyon know that we need happy installed.
+$ heroku config:set HALCYON_SANDBOX_EXTRA_APPS='happy'
+
+# Configure AWS S3.
+$ heroku config:set HALCYON_AWS_ACCESS_KEY_ID='...'
+$ heroku config:set HALCYON_AWS_SECRET_ACCESS_KEY='...'
+$ heroku config:set HALCYON_S3_BUCKET='...'
+
+# Push the code up to Heroku. Note that this build is expected to fail.
+$ git push heroku master
+
+# Build the app on a PX dyno.
+$ heroku run --size PX build
+
+# Force Heroku to rebuild the app using the cache built in the last step.
+$ git commit --amend --no-edit
+$ git push --force heroku master
+
+# Scale up a web dyno to serve requests.
+$ heroku ps:scale web=1
 ```
 
 [pointfree]: http://hackage.haskell.org/package/pointfree
