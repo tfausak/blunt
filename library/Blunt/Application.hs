@@ -4,10 +4,10 @@ module Blunt.Application where
 
 import Blunt.Markup (markup)
 import Blunt.Pointfree (safePointfree)
+import Blunt.Pointful (safePointful)
 
 import Data.Aeson (ToJSON, (.=), encode, object, toJSON)
 import Data.ByteString.Char8 (unpack)
-import Lambdabot.Pointful (pointful)
 import Network.HTTP.Types (notFound404, ok200)
 import Network.Wai (Application, Request, Response, queryString, pathInfo,
     requestMethod, responseLBS)
@@ -35,7 +35,7 @@ indexAction _request = do
 data Result = Result
     { resultInput :: String
     , resultPointfree :: [String]
-    , resultPointful :: String
+    , resultPointful :: Maybe String
     } deriving (Read, Show)
 
 instance ToJSON Result where
@@ -52,7 +52,7 @@ convertAction request = do
             _ -> ""
 
     pf <- safePointfree input
-    let pl = pointful input
+    let pl = safePointful input
         result = Result
             { resultInput = input
             , resultPointfree = pf
