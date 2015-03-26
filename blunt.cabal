@@ -20,6 +20,7 @@ source-repository head
 library
     exposed-modules:
         Blunt
+        Blunt.Style
     build-depends:
         base ==4.*,
         aeson ==0.8.*,
