@@ -26,14 +26,14 @@ library
     build-depends:
         base ==4.*,
         aeson ==0.8.*,
-        bytestring -any,
+        bytestring ==0.10.*,
         clay ==0.10.*,
-        http-types -any,
+        http-types ==0.8.*,
         jmacro ==0.6.*,
         lucid ==2.*,
         pointful >=1.0.6 && <2,
-        text -any,
-        wai -any,
+        text ==1.*,
+        wai ==3.*,
         warp ==3.*
     default-language: Haskell2010
     hs-source-dirs: library
