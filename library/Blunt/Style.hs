@@ -16,6 +16,7 @@ css = do
         backgroundColor "#f5f5f5"
         color "#151515"
         fontFamily [] [sansSerif]
+        lineHeight (em 1.5)
         sym margin nil
         sym padding nil
 
