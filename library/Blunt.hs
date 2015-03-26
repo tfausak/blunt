@@ -5,6 +5,7 @@ module Blunt
     , module Blunt.Markup
     , module Blunt.Pointfree
     , module Blunt.Pointful
+    , module Blunt.Router
     , module Blunt.Script
     , module Blunt.Style
     ) where
@@ -15,5 +16,6 @@ import Blunt.Main
 import Blunt.Markup
 import Blunt.Pointfree
 import Blunt.Pointful
+import Blunt.Router
 import Blunt.Script
 import Blunt.Style

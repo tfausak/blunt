@@ -28,6 +28,7 @@ library
         Blunt.Markup
         Blunt.Pointfree
         Blunt.Pointful
+        Blunt.Router
         Blunt.Script
         Blunt.Style
     build-depends:
