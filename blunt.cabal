@@ -24,6 +24,7 @@ library
         base ==4.*,
         aeson ==0.8.*,
         bytestring -any,
+        clay ==0.10.*,
         http-types -any,
         pointful >=1.0.6 && <2,
         wai -any,
