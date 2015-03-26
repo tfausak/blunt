@@ -2,7 +2,7 @@
 
 module Blunt where
 
-import Blunt.Style (style)
+import Blunt.Markup (markup)
 
 import Control.Exception (SomeException, evaluate, handle)
 import Data.Aeson (ToJSON, (.=), encode, object, toJSON)
@@ -35,7 +35,7 @@ route request = case (requestMethod request, pathInfo request) of
 indexAction :: Action
 indexAction _request = do
     let headers = [("Content-Type", "text/html")]
-        body = pack html
+        body = pack markup
     return (responseLBS ok200 headers body)
 
 data Result = Result
@@ -76,92 +76,3 @@ safePointfree :: String -> IO [String]
 safePointfree = handle handler . evaluate . pointfree where
     handler :: SomeException -> IO [String]
     handler _ = return []
-
-html :: String
-html = unlines
-    [ "<!doctype html>"
-    , ""
-    , "<html>"
-    , "  <head>"
-    , "    <meta charset='utf-8'>"
-    , "    <meta name='viewport' content='initial-scale = 1, maximum-scale = 1, minimum-scale = 1, width = device-width'>"
-    , ""
-    , "    <title>Blunt</title>"
-    , ""
-    , "    <style>"
-    , style
-    , "    </style>"
-    , "  </head>"
-    , ""
-    , "  <body>"
-    , "    <h1>Blunt</h1>"
-    , ""
-    , "    <dl>"
-    , "      <dt>Input</dt>"
-    , "      <dd>"
-    , "        <input id='input' placeholder='sum xs = foldr (+) 0 xs' autocapitalize='none' autocomplete='off' autocorrect='off' autofocus spellcheck='false'>"
-    , "      </dd>"
-    , ""
-    , "      <dt>Pointfree</dt>"
-    , "      <dd>"
-    , "        <div id='pointfree'></div>"
-    , "      </dd>"
-    , ""
-    , "      <dt>Pointful</dt>"
-    , "      <dd>"
-    , "        <div id='pointful'></div>"
-    , "      </dd>"
-    , "    </dl>"
-    , ""
-    , "    <p>"
-    , "      <a href='https://github.com/tfausak/blunt'>"
-    , "        https://github.com/tfausak/blunt"
-    , "      </a>"
-    , "    </p>"
-    , ""
-    , "    <script>"
-    , js
-    , "    </script>"
-    , "  </body>"
-    , "</html>"
-    ]
-
-js :: String
-js = unlines
-    [ "'use strict';"
-    , ""
-    , "(function () {"
-    , "  var input = document.getElementById('input');"
-    , "  var pointfree = document.getElementById('pointfree');"
-    , "  var pointful = document.getElementById('pointful');"
-    , ""
-    , "  var updateHash = function () {"
-    , "    window.location.replace('#input=' + input.value);"
-    , "  };"
-    , ""
-    , "  var updateOutput = function () {"
-    , "    var request = new XMLHttpRequest();"
-    , ""
-    , "    request.onreadystatechange = function () {"
-    , "      if (request.readyState === 4 && request.status === 200) {"
-    , "        var response = JSON.parse(request.response);"
-    , ""
-    , "        pointfree.textContent = response.pointfree.join('\\n');"
-    , "        pointful.textContent = response.pointful;"
-    , "      }"
-    , "    };"
-    , "    request.open('GET', '/convert?input=' + encodeURIComponent(input.value));"
-    , "    request.send();"
-    , "  };"
-    , ""
-    , "  input.oninput = function (_event) {"
-    , "    updateHash();"
-    , "    updateOutput();"
-    , "  };"
-    , ""
-    , "  if (window.location.hash.indexOf('#input=') === 0) {"
-    , "    input.value = window.location.hash.substring(7);"
-    , "    input.oninput();"
-    , "  }"
-    , "}());"
-    ]

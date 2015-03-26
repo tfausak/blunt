@@ -20,6 +20,8 @@ source-repository head
 library
     exposed-modules:
         Blunt
+        Blunt.Markup
+        Blunt.Script
         Blunt.Style
     build-depends:
         base ==4.*,
