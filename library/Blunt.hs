@@ -7,7 +7,6 @@ import Blunt.Markup (markup)
 import Control.Exception (SomeException, evaluate, handle)
 import Data.Aeson (ToJSON, (.=), encode, object, toJSON)
 import Data.ByteString.Char8 (unpack)
-import Data.ByteString.Lazy.Char8 (pack)
 import Lambdabot.Pointful (pointful)
 import Network.HTTP.Types (notFound404, ok200)
 import Network.Wai (Application, Request, Response, queryString, pathInfo,
@@ -35,7 +34,7 @@ route request = case (requestMethod request, pathInfo request) of
 indexAction :: Action
 indexAction _request = do
     let headers = [("Content-Type", "text/html")]
-        body = pack markup
+        body = markup
     return (responseLBS ok200 headers body)
 
 data Result = Result

@@ -1,56 +1,52 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 module Blunt.Markup where
 
 import Blunt.Script (script)
 import Blunt.Style (style)
 
-markup :: String
-markup = unlines html
+import Data.ByteString.Lazy (ByteString)
+import Lucid
 
-html :: [String]
-html =
-    [ "<!doctype html>"
-    , ""
-    , "<html>"
-    , "  <head>"
-    , "    <meta charset='utf-8'>"
-    , "    <meta name='viewport' content='initial-scale = 1, maximum-scale = 1, minimum-scale = 1, width = device-width'>"
-    , ""
-    , "    <title>Blunt</title>"
-    , ""
-    , "    <style>"
-    , style
-    , "    </style>"
-    , "  </head>"
-    , ""
-    , "  <body>"
-    , "    <h1>Blunt</h1>"
-    , ""
-    , "    <dl>"
-    , "      <dt>Input</dt>"
-    , "      <dd>"
-    , "        <input id='input' placeholder='sum xs = foldr (+) 0 xs' autocapitalize='none' autocomplete='off' autocorrect='off' autofocus spellcheck='false'>"
-    , "      </dd>"
-    , ""
-    , "      <dt>Pointfree</dt>"
-    , "      <dd>"
-    , "        <div id='pointfree'></div>"
-    , "      </dd>"
-    , ""
-    , "      <dt>Pointful</dt>"
-    , "      <dd>"
-    , "        <div id='pointful'></div>"
-    , "      </dd>"
-    , "    </dl>"
-    , ""
-    , "    <p>"
-    , "      <a href='https://github.com/tfausak/blunt'>"
-    , "        https://github.com/tfausak/blunt"
-    , "      </a>"
-    , "    </p>"
-    , ""
-    , "    <script>"
-    , script
-    , "    </script>"
-    , "  </body>"
-    , "</html>"
-    ]
+markup :: ByteString
+markup = renderBS html
+
+html :: Html ()
+html = doctypehtml_ $ do
+    head_ $ do
+        meta_ [charset_ "utf-8"]
+        meta_
+            [ name_ "viewport"
+            , content_ "initial-scale = 1, maximum-scale = 1, minimum-scale = 1, width = device-width"
+            ]
+
+        title_ "Blunt"
+
+        style_ [] style
+
+    body_ $ do
+        h1_ "Blunt"
+
+        dl_ $ do
+            dt_ "Input"
+            dd_ $ do
+                input_
+                    [ id_ "input"
+                    , placeholder_ "sum xs = foldr (+) 0 xs"
+                    , autocomplete_ "off"
+                    , autofocus_
+                    , spellcheck_ "off"
+                    , term "autocapitalize" "none"
+                    , term "autocorrect" "off"
+                    ]
+
+            dt_ "Pointfree"
+            dd_ (div_ [id_ "pointfree"] "")
+
+            dt_ "Pointful"
+            dd_ (div_ [id_ "pointful"] "")
+
+        p_ $ do
+            a_ [href_ "https://github.com/tfausak/blunt"] $ do
+                "github.com/tfausak/blunt"
+        script_ [] script
