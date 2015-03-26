@@ -2,10 +2,12 @@
 
 module Blunt.Script where
 
+import Data.Text.Lazy (Text)
 import Language.Javascript.JMacro
+import Text.PrettyPrint.Leijen.Text (displayT, renderOneLine)
 
-script :: String
-script = show (renderJs js)
+script :: Text
+script = displayT (renderOneLine (renderJs js))
 
 js :: JStat
 js = [jmacro|
