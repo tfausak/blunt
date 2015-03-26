@@ -3,15 +3,14 @@
 module Blunt.Application where
 
 import Blunt.Markup (markup)
+import Blunt.Pointfree (safePointfree)
 
-import Control.Exception (SomeException, evaluate, handle)
 import Data.Aeson (ToJSON, (.=), encode, object, toJSON)
 import Data.ByteString.Char8 (unpack)
 import Lambdabot.Pointful (pointful)
 import Network.HTTP.Types (notFound404, ok200)
 import Network.Wai (Application, Request, Response, queryString, pathInfo,
     requestMethod, responseLBS)
-import Pointfree (pointfree)
 
 application :: Application
 application request respondWith = do
@@ -66,8 +65,3 @@ convertAction request = do
 
 notFoundAction :: Action
 notFoundAction _request = return (responseLBS notFound404 [] "")
-
-safePointfree :: String -> IO [String]
-safePointfree = handle handler . evaluate . pointfree where
-    handler :: SomeException -> IO [String]
-    handler _ = return []
