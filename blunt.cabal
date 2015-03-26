@@ -29,6 +29,7 @@ library
         bytestring -any,
         clay ==0.10.*,
         http-types -any,
+        jmacro ==0.6.*,
         lucid ==2.*,
         pointful >=1.0.6 && <2,
         text -any,
