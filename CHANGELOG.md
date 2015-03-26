@@ -1,5 +1,10 @@
 # Change log
 
+-   Switched from deploying a binary to using Haskell on Heroku.
+-   Converted HTML to Lucid.
+-   Converted CSS to Clay.
+-   Converted JS to JMacro.
+
 ## v0.0.12 (2015-03-25)
 
 -   Combined `/pointfree` and `/pointful` endpoints into `/convert`.
