@@ -1,5 +1,6 @@
 module Blunt
-    ( module Blunt.Application
+    ( module Blunt.Actions
+    , module Blunt.Application
     , module Blunt.Main
     , module Blunt.Markup
     , module Blunt.Pointfree
@@ -8,6 +9,7 @@ module Blunt
     , module Blunt.Style
     ) where
 
+import Blunt.Actions
 import Blunt.Application
 import Blunt.Main
 import Blunt.Markup
