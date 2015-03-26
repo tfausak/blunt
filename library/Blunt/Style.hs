@@ -8,7 +8,7 @@ import Data.Text.Lazy (Text)
 import Prelude hiding (div)
 
 style :: Text
-style = render css
+style = renderWith compact [] css
 
 css :: Css
 css = do
