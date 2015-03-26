@@ -4,11 +4,11 @@ module Blunt.Style where
 
 import Clay
 import Data.Monoid ((<>))
-import Data.Text.Lazy (unpack)
+import Data.Text.Lazy (Text)
 import Prelude hiding (div)
 
-style :: String
-style = unpack (render css)
+style :: Text
+style = render css
 
 css :: Css
 css = do

@@ -49,4 +49,5 @@ html = doctypehtml_ $ do
         p_ $ do
             a_ [href_ "https://github.com/tfausak/blunt"] $ do
                 "github.com/tfausak/blunt"
+
         script_ [] script
