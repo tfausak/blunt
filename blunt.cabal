@@ -22,6 +22,7 @@ source-repository head
 library
     exposed-modules:
         Blunt
+        Blunt.Application
         Blunt.Main
         Blunt.Markup
         Blunt.Script
