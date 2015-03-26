@@ -1,5 +1,7 @@
 # Change log
 
+## v0.0.13 (2015-03-25)
+
 -   Switched from deploying a binary to using Haskell on Heroku.
 -   Converted HTML to Lucid.
 -   Converted CSS to Clay.
