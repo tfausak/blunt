@@ -3,6 +3,7 @@
 module Blunt.Style where
 
 import Clay
+
 import Data.Monoid ((<>))
 import Data.Text.Lazy (Text)
 import Prelude hiding (div)

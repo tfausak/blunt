@@ -5,8 +5,7 @@ module Blunt.Actions where
 import Blunt.Markup (markup)
 import Blunt.Pointfree (safePointfree)
 import Blunt.Pointful (safePointful)
-
-import Data.Aeson (ToJSON, (.=), encode, object, toJSON)
+import Data.Aeson (ToJSON, encode, object, toJSON, (.=))
 import Data.ByteString.Char8 (unpack)
 import Network.HTTP.Types (notFound404, ok200)
 import Network.Wai (Request, Response, queryString, responseLBS)

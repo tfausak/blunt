@@ -2,11 +2,11 @@
 
 module Blunt.Markup where
 
+import Lucid
+
 import Blunt.Script (script)
 import Blunt.Style (style)
-
 import Data.ByteString.Lazy (ByteString)
-import Lucid
 
 markup :: ByteString
 markup = renderBS html

@@ -2,8 +2,9 @@
 
 module Blunt.Script where
 
-import Data.Text.Lazy (Text)
 import Language.Javascript.JMacro
+
+import Data.Text.Lazy (Text)
 import Text.PrettyPrint.Leijen.Text (displayT, renderOneLine)
 
 script :: Text
@@ -36,7 +37,7 @@ js = [jmacro|
         updateHash();
         updateOutput();
     };
-    
+
     if (window.location.hash.indexOf("#input=") === 0) {
         input.value = window.location.hash.substring(7);
         input.oninput();

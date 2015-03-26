@@ -1,7 +1,6 @@
 module Blunt.Main where
 
 import Blunt.Application (application)
-
 import Network.Wai.Handler.Warp (runEnv)
 
 main :: IO ()

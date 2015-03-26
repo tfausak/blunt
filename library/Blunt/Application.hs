@@ -1,7 +1,6 @@
 module Blunt.Application where
 
 import Blunt.Router (route)
-
 import Network.Wai (Application)
 
 application :: Application
