@@ -11,7 +11,7 @@ script :: Text
 script = displayT (renderOneLine (renderJs js))
 
 js :: JStat
-js = [jmacro|
+js = [jmacro| \ {
     var input = document.getElementById("input");
     var pointfree = document.getElementById("pointfree");
     var pointful = document.getElementById("pointful");
@@ -42,4 +42,4 @@ js = [jmacro|
         input.value = window.location.hash.substring(7);
         input.oninput();
     }
-|]
+}(); |]
