@@ -1,5 +1,9 @@
 # Change log
 
+-   Added request logging.
+-   Added gzip compression.
+-   Removed trailing semicolons from pointful output.
+
 ## v0.0.13 (2015-03-25)
 
 -   Switched from deploying a binary to using Haskell on Heroku.
