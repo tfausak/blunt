@@ -1,5 +1,7 @@
 # Change log
 
+## v0.0.14 (2015-03-27)
+
 -   Added request logging.
 -   Added gzip compression.
 -   Removed trailing semicolons from pointful output.
