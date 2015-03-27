@@ -3,6 +3,7 @@ module Blunt
     , module Blunt.Application
     , module Blunt.Main
     , module Blunt.Markup
+    , module Blunt.Middleware
     , module Blunt.Pointfree
     , module Blunt.Pointful
     , module Blunt.Router
@@ -14,6 +15,7 @@ import Blunt.Actions
 import Blunt.Application
 import Blunt.Main
 import Blunt.Markup
+import Blunt.Middleware
 import Blunt.Pointfree
 import Blunt.Pointful
 import Blunt.Router

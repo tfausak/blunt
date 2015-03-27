@@ -26,6 +26,7 @@ library
         Blunt.Application
         Blunt.Main
         Blunt.Markup
+        Blunt.Middleware
         Blunt.Pointfree
         Blunt.Pointful
         Blunt.Router
