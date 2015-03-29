@@ -16,6 +16,17 @@ js = [jmacro| \ {
     var pointfree = document.getElementById("pointfree");
     var pointful = document.getElementById("pointful");
 
+    var socket = new WebSocket(window.location.origin.replace('http', 'ws'));
+
+    socket.onopen = \ {
+        console.log('open');
+        socket.send('TEST');
+    };
+
+    socket.onmessage = \ event {
+        console.log(event);
+    };
+
     var updateHash = \ { window.location.replace("#input=" + input.value); };
 
     var updateOutput = \ {
