@@ -22,15 +22,9 @@ source-repository head
 library
     exposed-modules:
         Blunt
-        Blunt.Application
-        Blunt.HTTP
-        Blunt.Main
         Blunt.Markup
-        Blunt.Pointfree
-        Blunt.Pointful
         Blunt.Script
         Blunt.Style
-        Blunt.WebSocket
     build-depends:
         base ==4.*,
         aeson ==0.8.*,

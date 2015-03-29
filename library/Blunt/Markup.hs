@@ -14,7 +14,6 @@ markup = renderBS html
 html :: Html ()
 html = doctypehtml_ $ do
     head_ $ do
-        meta_ [charset_ "utf-8"]
         meta_
             [ name_ "viewport"
             , content_ "initial-scale = 1, maximum-scale = 1, minimum-scale = 1, width = device-width"
