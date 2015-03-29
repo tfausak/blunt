@@ -1,23 +1,21 @@
 module Blunt
-    ( module Blunt.Actions
-    , module Blunt.Application
+    ( module Blunt.Application
+    , module Blunt.HTTP
     , module Blunt.Main
     , module Blunt.Markup
-    , module Blunt.Middleware
     , module Blunt.Pointfree
     , module Blunt.Pointful
-    , module Blunt.Router
     , module Blunt.Script
     , module Blunt.Style
+    , module Blunt.WebSocket
     ) where
 
-import Blunt.Actions
 import Blunt.Application
+import Blunt.HTTP
 import Blunt.Main
 import Blunt.Markup
-import Blunt.Middleware
 import Blunt.Pointfree
 import Blunt.Pointful
-import Blunt.Router
 import Blunt.Script
 import Blunt.Style
+import Blunt.WebSocket
