@@ -1,5 +1,10 @@
 # Change log
 
+## v0.0.15 (2015-03-29)
+
+-   Switch to converting expressions over WebSockets.
+-   Removed the `/convert` endpoint.
+
 ## v0.0.14 (2015-03-27)
 
 -   Added request logging.
