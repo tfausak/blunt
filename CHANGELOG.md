@@ -51,7 +51,7 @@
 
 ## v0.0.5 (2015-03-19)
 
--   Constraint versions of `pointfree` dependencies.
+-   Constrained versions of pointfree dependencies.
 
 ## v0.0.4 (2015-03-19)
 
