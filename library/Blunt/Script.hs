@@ -19,38 +19,21 @@ js = [jmacro| \ {
     var socket = new WebSocket(window.location.origin.replace('http', 'ws'));
 
     socket.onopen = \ {
-        console.log('open');
-        socket.send('TEST');
-    };
-
-    socket.onmessage = \ event {
-        console.log(event);
-    };
-
-    var updateHash = \ { window.location.replace("#input=" + input.value); };
-
-    var updateOutput = \ {
-        var request = new XMLHttpRequest;
-
-        request.onreadystatechange = \ {
-            if (request.readyState !== 4 || request.status !== 200) { return; }
-
-            var response = JSON.parse request.response;
-            pointfree.textContent = response.pointfree.join("\n");
-            pointful.textContent = response.pointful;
+        input.oninput = \ {
+            window.location.replace("#input=" + input.value);
+            socket.send(input.value);
         };
 
-        request.open("GET", "/convert?input=" + encodeURIComponent(input.value));
-        request.send();
+        if (input.value) { input.oninput(); }
     };
 
-    input.oninput = \ {
-        updateHash();
-        updateOutput();
+    socket.onmessage = \ message {
+        var response = JSON.parse(message.data);
+        pointfree.textContent = response.pointfree.join("\n");
+        pointful.textContent = response.pointful;
     };
 
     if (window.location.hash.indexOf("#input=") === 0) {
         input.value = window.location.hash.substring(7);
-        input.oninput();
     }
 }(); |]
