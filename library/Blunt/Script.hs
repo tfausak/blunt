@@ -16,7 +16,7 @@ js = [jmacro| \ {
     var pointfree = document.getElementById("pointfree");
     var pointful = document.getElementById("pointful");
 
-    var socket = new WebSocket(window.location.origin.replace('http', 'ws'));
+    var socket = new WebSocket(window.location.origin.replace("http", "ws"));
 
     socket.onopen = \ {
         input.oninput = \ {
