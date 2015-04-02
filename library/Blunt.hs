@@ -18,7 +18,7 @@ import Network.Wai.Handler.WebSockets (websocketsOr)
 import Network.Wai.Middleware.Gzip (def, gzip)
 import Network.Wai.Middleware.RequestLogger (logStdout)
 import Network.WebSockets (ServerApp, acceptRequest, defaultConnectionOptions,
-    receiveData, sendTextData)
+    forkPingThread, receiveData, sendTextData)
 import Pointfree (pointfree)
 
 main :: IO ()
@@ -30,6 +30,7 @@ application = websocketsOr defaultConnectionOptions ws http
 ws :: ServerApp
 ws pending = do
     connection <- acceptRequest pending
+    forkPingThread connection 30
     forever <| do
         message <- receiveData connection
         result <- convert message
