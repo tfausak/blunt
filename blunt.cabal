@@ -30,6 +30,7 @@ library
         aeson ==0.8.*,
         bytestring ==0.10.*,
         clay ==0.10.*,
+        flow ==1.*,
         http-types ==0.8.*,
         jmacro ==0.6.*,
         lucid ==2.*,

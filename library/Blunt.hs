@@ -2,6 +2,8 @@
 
 module Blunt where
 
+import Flow
+
 import Blunt.Markup (markup)
 import Control.Exception (SomeException, evaluate, handle)
 import Control.Monad (forever)
@@ -28,14 +30,14 @@ application = websocketsOr defaultConnectionOptions ws http
 ws :: ServerApp
 ws pending = do
     connection <- acceptRequest pending
-    forever $ do
+    forever <| do
         message <- receiveData connection
         result <- convert message
         sendTextData connection (encode result)
 
 http :: Application
-http = gzip def . logStdout $ \ request respond ->
-    respond $ case (requestMethod request, pathInfo request) of
+http = logStdout .> gzip def <| \ request respond ->
+    respond <| case (requestMethod request, pathInfo request) of
         ("GET", []) -> responseLBS status headers body where
             status = ok200
             headers = [("Content-Type", "text/html; charset=utf-8")]
@@ -54,7 +56,7 @@ convert message = do
         }
 
 safePointfree :: String -> IO [String]
-safePointfree = handle handler . evaluate . pointfree
+safePointfree = pointfree .> evaluate .> handle handler
 
 handler :: SomeException -> IO [String]
 handler _ = return []
