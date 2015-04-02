@@ -46,6 +46,16 @@ html = doctypehtml_ $ do
             dd_ (div_ [id_ "pointful"] "")
 
         p_ $ do
+            "Blunt converts Haskell expressions between the pointfree and "
+            "pointful styles. It is a web front end to the "
+            a_ [href_ "http://hackage.haskell.org/package/pointfree"]
+                "pointfree"
+            " and "
+            a_ [href_ "http://hackage.haskell.org/package/pointful"]
+                "pointful"
+            " libraries."
+
+        p_ $ do
             a_ [href_ "https://github.com/tfausak/blunt"] $ do
                 "github.com/tfausak/blunt"
 
