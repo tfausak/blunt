@@ -20,7 +20,8 @@ js = [jmacro| \ {
 
     socket.onopen = \ {
         input.oninput = \ {
-            window.location.replace("#input=" + input.value);
+            window.location.replace(
+                "#input=" + encodeURIComponent(input.value));
             socket.send(input.value);
         };
 
@@ -34,6 +35,6 @@ js = [jmacro| \ {
     };
 
     if (window.location.hash.indexOf("#input=") === 0) {
-        input.value = window.location.hash.substring(7);
+        input.value = decodeURIComponent(window.location.hash.substring(7));
     }
 }(); |]
