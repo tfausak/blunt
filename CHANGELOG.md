@@ -1,5 +1,7 @@
 # Change log
 
+-   Fixed a bug that incorrectly decoded inputs from the URL.
+
 ## v0.0.15 (2015-03-29)
 
 -   Switch to converting expressions over WebSockets.
