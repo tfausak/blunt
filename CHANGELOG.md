@@ -1,6 +1,8 @@
 # Change log
 
 -   Fixed a bug that incorrectly decoded inputs from the URL.
+-   Added some explanatory text, ostensibly for SEO.
+-   Added a ping to the WebSocket client to keep the connection open.
 
 ## v0.0.15 (2015-03-29)
 
