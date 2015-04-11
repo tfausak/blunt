@@ -1,5 +1,5 @@
 name: blunt
-version: 0.0.16
+version: 0.0.17
 cabal-version: >=1.10
 build-type: Simple
 license: MIT

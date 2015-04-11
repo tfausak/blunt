@@ -1,5 +1,9 @@
 # Change log
 
+## v0.0.17 (2015-04-11)
+
+-   Added dependency on Hackage version of pointfree package.
+
 ## v0.0.16 (2015-04-03)
 
 -   Fixed a bug that incorrectly decoded inputs from the URL.
