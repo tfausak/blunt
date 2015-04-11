@@ -51,8 +51,7 @@ convert message = do
     pf <- safePointfree input
     let pl = safePointful input
     return Conversion
-        { conversionInput = input
-        , conversionPointfree = pf
+        { conversionPointfree = pf
         , conversionPointful = pl
         }
 
@@ -72,14 +71,12 @@ safePointful input =
             else Just output
 
 data Conversion = Conversion
-    { conversionInput :: String
-    , conversionPointfree :: [String]
+    { conversionPointfree :: [String]
     , conversionPointful :: Maybe String
     } deriving (Read, Show)
 
 instance ToJSON Conversion where
     toJSON result = object
-        [ "input" .= conversionInput result
-        , "pointfree" .= conversionPointfree result
+        [ "pointfree" .= conversionPointfree result
         , "pointful" .= conversionPointful result
         ]
