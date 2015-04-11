@@ -24,7 +24,7 @@ the `pointfree` and `pointful` executables. Instead, use the hosted version:
 
 ``` sh
 $ cabal update
-$ cabal install 'blunt ==0.0.*'
+$ cabal install 'blunt ==1.*'
 ```
 
 ## Use

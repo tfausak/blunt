@@ -1,5 +1,9 @@
 # Change log
 
+## v1.0.0 (2015-04-11)
+
+-   Removed input from WebSocket response.
+
 ## v0.0.17 (2015-04-11)
 
 -   Added dependency on Hackage version of pointfree package.
