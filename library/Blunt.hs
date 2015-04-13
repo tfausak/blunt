@@ -31,14 +31,17 @@ ws :: ServerApp
 ws pending = do
     connection <- acceptRequest pending
     forkPingThread connection 30
-    forever <| do
+    forever (app connection)
+  where
+    app connection = do
         message <- receiveData connection
         result <- convert message
         sendTextData connection (encode result)
 
 http :: Application
-http = logStdout .> gzip def <| \ request respond ->
-    respond <| case (requestMethod request, pathInfo request) of
+http = (\ request -> apply (app request)) |> logStdout .> gzip def
+  where
+    app request = case (requestMethod request, pathInfo request) of
         ("GET", []) -> responseLBS status headers body where
             status = ok200
             headers = [("Content-Type", "text/html; charset=utf-8")]
