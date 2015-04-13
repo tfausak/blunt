@@ -45,7 +45,9 @@ $ cd blunt
 
 $ cabal sandbox init
 $ cabal install happy
-$ cabal install
+$ cabal install --only-dependencies
+$ cabal run
+# http://localhost:8080
 ```
 
 ## Deploy
