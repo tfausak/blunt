@@ -7,9 +7,12 @@ license-file: LICENSE.md
 maintainer: Taylor Fausak <taylor@fausak.me>
 homepage: https://blunt.herokuapp.com
 bug-reports: https://github.com/tfausak/blunt/issues
-synopsis: Point-free Haskell as a service.
+synopsis: Convert between pointfree and pointful expressions.
 description:
-    <https://github.com/tfausak/blunt>
+    Blunt is a web front end to the pointfree and pointful libraries. While you
+    can install and run it locally, there's no real reason to prefer it over
+    the @pointfree@ and @pointful@ executables. Instead, use the hosted
+    version: <https://blunt.herokuapp.com>.
 category: Web
 extra-source-files:
     CHANGELOG.md
