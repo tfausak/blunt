@@ -20,7 +20,7 @@ html = doctypehtml_ <| do
             , content_ "initial-scale = 1, maximum-scale = 1, minimum-scale = 1, width = device-width"
             ]
 
-        title_ "Blunt"
+        title_ "Blunt \183 Online Haskell pointfree converter"
 
         style_ [] style
 
