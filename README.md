@@ -9,8 +9,8 @@
 </p>
 
 <p align="center">
-    <a href="https://hackage.haskell.org/package/blunt"><img alt="Version" src="https://img.shields.io/hackage/v/blunt.svg?label=version&style=flat-square"></a>
-    <a href="http://packdeps.haskellers.com/feed?needle=blunt"><img alt="Dependencies" src="https://img.shields.io/hackage-deps/v/blunt.svg?label=dependencies&style=flat-square"></a>
+    <a href="https://hackage.haskell.org/package/blunt"><img alt="Version" src="https://img.shields.io/hackage/v/blunt.svg?label=version&amp;style=flat-square"></a>
+    <a href="http://packdeps.haskellers.com/feed?needle=blunt"><img alt="Dependencies" src="https://img.shields.io/hackage-deps/v/blunt.svg?label=dependencies&amp;style=flat-square"></a>
 </p>
 
 <hr>
