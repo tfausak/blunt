@@ -1,5 +1,10 @@
 # Change log
 
+## v1.0.2 (2015-04-14)
+
+-   Remove potentially confusing syntax in Cabal file.
+-   Added version constraints for faster deploys.
+
 ## v1.0.1 (2015-04-14)
 
 -   Fixed HTML entities.
