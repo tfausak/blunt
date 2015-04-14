@@ -12,7 +12,7 @@ description:
     Blunt is a web front end to the pointfree and pointful libraries. While you
     can install and run it locally, there's no real reason to prefer it over
     the @pointfree@ and @pointful@ executables. Instead, use the hosted
-    version: <https://blunt.herokuapp.com>.
+    version at <https://blunt.herokuapp.com blunt.herokuapp.com>.
 category: Web
 extra-source-files:
     CHANGELOG.md
