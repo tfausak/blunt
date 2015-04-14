@@ -1,5 +1,10 @@
 # Change log
 
+## v1.0.1 (2015-04-14)
+
+-   Fixed HTML entities.
+-   Improved SEO.
+
 ## v1.0.0 (2015-04-11)
 
 -   Removed input from WebSocket response.
