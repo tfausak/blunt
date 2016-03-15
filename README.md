@@ -5,15 +5,15 @@ Blunt converts between pointfree and pointful Haskell expressions.
 [![Version badge][]][version]
 [![Build badge]][build]
 
--   [Install](#install)
--   [Use](#use)
--   [Develop](#develop)
--   [Deploy](#deploy)
-
 Blunt is a web front end to the [pointfree][] and [pointful][] libraries. While
 you can install and run it locally, there's no real reason to prefer it over
 the `pointfree` and `pointful` executables. Instead, use the hosted version at
 <https://blunt.herokuapp.com>.
+
+-   [Install](#install)
+-   [Use](#use)
+-   [Develop](#develop)
+-   [Deploy](#deploy)
 
 ## Install
 
