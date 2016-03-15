@@ -1,23 +1,18 @@
-<h1 align="center">
-    <a href="https://github.com/tfausak/blunt">
-        Blunt
-    </a>
-</h1>
+# [Blunt][]
 
-<p align="center">
-    Blunt converts between pointfree and pointful Haskell expressions.
-</p>
+Blunt converts between pointfree and pointful Haskell expressions.
 
-<p align="center">
-    <a href="https://hackage.haskell.org/package/blunt"><img alt="Version" src="https://img.shields.io/hackage/v/blunt.svg?label=version&amp;style=flat-square"></a>
-    <a href="http://packdeps.haskellers.com/feed?needle=blunt"><img alt="Dependencies" src="https://img.shields.io/hackage-deps/v/blunt.svg?label=dependencies&amp;style=flat-square"></a>
-</p>
+[![Version badge][]][version]
+[![Build badge]][build]
 
-<hr>
+-   [Install](#install)
+-   [Use](#use)
+-   [Develop](#develop)
+-   [Deploy](#deploy)
 
 Blunt is a web front end to the [pointfree][] and [pointful][] libraries. While
 you can install and run it locally, there's no real reason to prefer it over
-the `pointfree` and `pointful` executables. Instead, use the hosted version:
+the `pointfree` and `pointful` executables. Instead, use the hosted version at
 <https://blunt.herokuapp.com>.
 
 ## Install
@@ -78,5 +73,10 @@ $ git push --force heroku master
 $ heroku ps:scale web=1
 ```
 
+[Blunt]: https://github.com/tfausak/blunt
+[Version badge]: https://img.shields.io/hackage/v/blunt.svg?label=version
+[version]: https://hackage.haskell.org/package/blunt
+[Build badge]: https://travis-ci.org/tfausak/blunt.svg?branch=master
+[build]: https://travis-ci.org/tfausak/blunt
 [pointfree]: http://hackage.haskell.org/package/pointfree
 [pointful]: http://hackage.haskell.org/package/pointful
