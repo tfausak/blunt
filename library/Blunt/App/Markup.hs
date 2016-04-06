@@ -11,7 +11,7 @@ markup :: ByteString.ByteString
 markup = renderBS html
 
 html :: Html ()
-html = 
+html =
     doctypehtml_ $
     do head_ $
            do meta_

@@ -11,7 +11,7 @@ script :: Text.Text
 script = js & renderJs & PrettyPrint.renderOneLine & PrettyPrint.displayT
 
 js :: JStat
-js = 
+js =
     [jmacro|
 \ {
     var input = document.getElementById("input");

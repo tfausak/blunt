@@ -2,4 +2,4 @@ extra-deps:
 - pointfree-1.1.1.1
 install-ghc: true
 require-stack-version: ! '>=1.0.4'
-resolver: nightly-2016-04-05
+resolver: nightly-2016-04-06

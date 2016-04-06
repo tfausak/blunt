@@ -17,27 +17,27 @@ ghc-options: -Wall
 github: tfausak/blunt
 library:
   dependencies:
-  - aeson
-  - autoexporter
-  - base
-  - bytestring
-  - clay
-  - ekg
-  - envy
-  - hslogger
-  - http-types
-  - jmacro
-  - lucid
-  - newtype-generics
-  - pointfree
-  - pointful
-  - signal
-  - text
-  - wai
-  - wai-websockets
-  - warp
-  - websockets
-  - wl-pprint-text
+  - aeson ==0.11.1.4
+  - autoexporter ==0.1.4
+  - base ==4.8.2.0
+  - bytestring ==0.10.6.0
+  - clay ==0.10.1
+  - ekg ==0.4.0.9
+  - envy ==1.1.0.0
+  - hslogger ==1.2.9
+  - http-types ==0.9
+  - jmacro ==0.6.13
+  - lucid ==2.9.5
+  - newtype-generics ==0.4.1
+  - pointfree ==1.1.1.1
+  - pointful ==1.0.7
+  - signal ==0.1.0.3
+  - text ==1.2.2.1
+  - wai ==3.2.0.1
+  - wai-websockets ==3.0.0.8
+  - warp ==3.2.3
+  - websockets ==0.9.6.1
+  - wl-pprint-text ==1.1.0.4
   other-modules: Paths_blunt
   source-dirs: library
 license: MIT

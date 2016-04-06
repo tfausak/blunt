@@ -16,17 +16,17 @@ import qualified Network.Wai.Handler.Warp as Warp
 
 data Server = Server
     { serverThreadId :: Concurrent.ThreadId
-    } 
+    }
 
 instance Common.Component Server where
     type Dependencies Server = (Environment.Environment, Logs.Logs, Metrics.Metrics, Wai.Application)
     start (environment,_logs,_metrics,application) = do
-        let host = 
+        let host =
                 environment & Environment.environmentServerHost &
                 Newtype.unpack
         let port = Environment.environmentServerPort environment
         let serverName = "blunt-" ++ Version.versionString & ByteString.pack
-        let settings = 
+        let settings =
                 Warp.defaultSettings & Warp.setHost host & Warp.setPort port &
                 Warp.setServerName serverName
         threadId <- application & Warp.runSettings settings & Concurrent.forkIO

@@ -21,7 +21,7 @@ import qualified Network.WebSockets as WebSockets
 import qualified Pointfree as Pointfree
 
 application :: Wai.Application
-application = 
+application =
     WebSockets.websocketsOr WebSockets.defaultConnectionOptions ws http
 
 ws :: WebSockets.ServerApp
@@ -37,11 +37,11 @@ ws pending = do
 
 http :: Wai.Application
 http request respond = do
-    let response = 
+    let response =
             case (Wai.requestMethod request, Wai.pathInfo request) of
                 ("GET",[]) -> Wai.responseLBS status headers body
                     where status = HTTP.ok200
-                          headers = 
+                          headers =
                               [("Content-Type", "text/html; charset=utf-8")]
                           body = Markup.markup
                 _ -> Wai.responseLBS HTTP.notFound404 [] ""
@@ -59,14 +59,14 @@ convert message = do
         }
 
 safePointfree :: String -> IO [String]
-safePointfree input = 
+safePointfree input =
     input & Pointfree.pointfree & Exception.evaluate & Exception.handle handler
 
 handler :: Exception.SomeException -> IO [String]
 handler _exception = return []
 
 safePointful :: String -> Maybe String
-safePointful input = 
+safePointful input =
     let output = Pointful.pointful input
     in if any (`List.isPrefixOf` output) ["Error:", "<unknown>.hs:"]
            then Nothing
@@ -81,7 +81,7 @@ data Conversion = Conversion
     } deriving (Generics.Generic,Read,Show)
 
 instance Aeson.ToJSON Conversion where
-    toJSON = 
+    toJSON =
         Aeson.genericToJSON
             Aeson.defaultOptions
             { Aeson.fieldLabelModifier = drop (length ("Conversion" :: String)) >>>

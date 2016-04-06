@@ -11,13 +11,13 @@ import qualified System.Remote.Monitoring as Monitoring
 
 data Metrics = Metrics
     { metricsServer :: Maybe Monitoring.Server
-    } 
+    }
 
 instance Common.Component Metrics where
     type Dependencies Metrics = (Environment.Environment)
     start (environment) = do
         let host = Environment.environmentMetricsHost environment
-        maybeServer <- 
+        maybeServer <-
             if ByteString.null host
                 then return Nothing
                 else do
@@ -31,5 +31,5 @@ instance Common.Component Metrics where
     stop metrics = do
         case metricsServer metrics of
             Nothing -> return ()
-            Just server -> 
+            Just server ->
                 server & Monitoring.serverThreadId & Concurrent.killThread

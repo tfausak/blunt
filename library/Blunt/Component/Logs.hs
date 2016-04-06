@@ -15,20 +15,20 @@ import qualified System.Log.Logger as Log
 data Logs = Logs
     { logsLogger :: Log.Logger
     , logsOriginalLogger :: Log.Logger
-    } 
+    }
 
 instance Common.Component Logs where
     type Dependencies Logs = (Environment.Environment)
     start (environment) = do
         originalLogger <- Log.getRootLogger
-        let priority = 
+        let priority =
                 environment & Environment.environmentLogsPriority &
                 Newtype.unpack
         basicHandler <- Handler.streamHandler IO.stdout Log.DEBUG
-        let formatter = 
+        let formatter =
                 Formatter.tfLogFormatter "%FT%T%Q%z" "$time - $prio - $msg"
         let handler = Handler.setFormatter basicHandler formatter
-        let logger = 
+        let logger =
                 originalLogger & Log.setLevel priority &
                 Log.setHandlers [handler]
         Log.saveGlobalLogger logger

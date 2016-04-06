@@ -20,7 +20,7 @@ data Environment = Environment
     , environmentMetricsPort :: Int
     , environmentServerHost :: Host
     , environmentServerPort :: Int
-    } deriving ((((((Generics.Generic))))))
+    } deriving (Generics.Generic)
 
 instance Common.Component Environment where
     type Dependencies Environment = ()
@@ -31,7 +31,7 @@ instance Common.Component Environment where
             Right environment -> return environment
 
 instance Envy.DefConfig Environment where
-    defConfig = 
+    defConfig =
         Environment
         { environmentLogsPriority = Newtype.pack Log.NOTICE
         , environmentMetricsHost = ByteString.pack "127.0.0.1"
@@ -42,7 +42,7 @@ instance Envy.DefConfig Environment where
         }
 
 instance Envy.FromEnv Environment where
-    fromEnv = 
+    fromEnv =
         Envy.gFromEnvCustom
             Envy.Option
             { Envy.customPrefix = ""
@@ -51,7 +51,7 @@ instance Envy.FromEnv Environment where
 
 newtype Host =
     Host Warp.HostPreference
-    deriving ((((((Generics.Generic))))))
+    deriving (Generics.Generic)
 
 instance Newtype.Newtype Host
 
@@ -63,7 +63,7 @@ instance Envy.Var Host where
 
 newtype Priority =
     Priority Log.Priority
-    deriving ((((((Generics.Generic))))))
+    deriving (Generics.Generic)
 
 instance Newtype.Newtype Priority
 
