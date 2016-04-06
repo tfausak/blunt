@@ -9,7 +9,7 @@ install and run it locally, there's no real reason to prefer it over the
 
 -   [Install](#install)
 -   [Run](#run)
--   [configure](#configure)
+-   [Configure](#configure)
 
 ## Install
 
