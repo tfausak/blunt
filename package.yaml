@@ -22,7 +22,9 @@ library:
   - base ==4.8.2.0
   - bytestring ==0.10.6.0
   - clay ==0.10.1
+  - containers ==0.5.6.2
   - ekg ==0.4.0.9
+  - ekg-core ==0.1.1.0
   - envy ==1.1.0.0
   - hslogger ==1.2.9
   - http-types ==0.9
@@ -33,6 +35,7 @@ library:
   - pointful ==1.0.7
   - signal ==0.1.0.3
   - text ==1.2.2.1
+  - timeit ==1.0.0.0
   - wai ==3.2.0.1
   - wai-websockets ==3.0.0.8
   - warp ==3.2.3

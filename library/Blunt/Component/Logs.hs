@@ -21,6 +21,7 @@ instance Common.Component Logs where
     type Dependencies Logs = (Environment.Environment)
     start (environment) = do
         originalLogger <- Log.getRootLogger
+        Log.updateGlobalLogger Log.rootLoggerName Log.removeHandler
         let priority =
                 environment & Environment.environmentLogsPriority &
                 Newtype.unpack
@@ -31,7 +32,6 @@ instance Common.Component Logs where
         let logger =
                 originalLogger & Log.setLevel priority &
                 Log.setHandlers [handler]
-        Log.saveGlobalLogger logger
         return
             Logs
             { logsLogger = logger
@@ -39,3 +39,27 @@ instance Common.Component Logs where
             }
     stop logs = do
         logs & logsOriginalLogger & Log.saveGlobalLogger
+
+logsDebug :: String -> Logs -> IO ()
+logsDebug message logs = Log.logL (logsLogger logs) Log.DEBUG message
+
+logsInfo :: String -> Logs -> IO ()
+logsInfo message logs = Log.logL (logsLogger logs) Log.INFO message
+
+logsNotice :: String -> Logs -> IO ()
+logsNotice message logs = Log.logL (logsLogger logs) Log.NOTICE message
+
+logsWarning :: String -> Logs -> IO ()
+logsWarning message logs = Log.logL (logsLogger logs) Log.WARNING message
+
+logsError :: String -> Logs -> IO ()
+logsError message logs = Log.logL (logsLogger logs) Log.ERROR message
+
+logsCritical :: String -> Logs -> IO ()
+logsCritical message logs = Log.logL (logsLogger logs) Log.CRITICAL message
+
+logsAlert :: String -> Logs -> IO ()
+logsAlert message logs = Log.logL (logsLogger logs) Log.ALERT message
+
+logsEmergency :: String -> Logs -> IO ()
+logsEmergency message logs = Log.logL (logsLogger logs) Log.EMERGENCY message
