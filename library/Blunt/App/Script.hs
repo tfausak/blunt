@@ -33,7 +33,7 @@ js =
     socket.onmessage = \ message {
         var response = JSON.parse(message.data);
         pointfree.textContent = response.pointfree.join("\n");
-        pointful.textContent = response.pointful;
+        pointful.textContent = response.pointful.join("\n");
     };
 
     if (window.location.hash.indexOf("#input=") === 0) {

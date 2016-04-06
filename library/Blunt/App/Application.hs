@@ -77,19 +77,19 @@ safePointfree input =
 handler :: Exception.SomeException -> IO [String]
 handler _exception = return []
 
-safePointful :: String -> Maybe String
+safePointful :: String -> [String]
 safePointful input =
     let output = Pointful.pointful input
     in if any (`List.isPrefixOf` output) ["Error:", "<unknown>.hs:"]
-           then Nothing
+           then []
            else if ";" `List.isSuffixOf` output &&
                    not (";" `List.isSuffixOf` input)
-                    then output & init & Just
-                    else Just output
+                    then [init output]
+                    else [output]
 
 data Conversion = Conversion
     { conversionPointfree :: [String]
-    , conversionPointful :: Maybe String
+    , conversionPointful :: [String]
     } deriving (Generics.Generic,Read,Show)
 
 instance Aeson.ToJSON Conversion where
