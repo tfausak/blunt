@@ -33,7 +33,7 @@ css = do
     dl ? do sym margin nil
     dt ? do marginTop (em 1.5)
     dd ? do sym margin nil
-    input <> Clay.div ?
+    input <> ".output" ?
         do border solid (px 1) "#e0e0e0"
            boxSizing borderBox
            fontFamily [] [monospace]
@@ -43,9 +43,7 @@ css = do
         do height (em 3)
            lineHeight (em 3)
            sym2 padding nil (em 0.75)
-    Clay.div ?
+    ".output" ?
         do sym padding (em 0.75)
            whiteSpace preWrap
-    p ?
-        do margin (em 1.5) nil nil nil
-           textAlign (alignSide sideCenter)
+    p ? do margin (em 1.5) nil nil nil

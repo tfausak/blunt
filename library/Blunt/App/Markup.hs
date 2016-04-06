@@ -16,12 +16,11 @@ html =
     do head_ $
            do meta_
                   [ name_ "viewport"
-                  , content_
-                        "initial-scale = 1, maximum-scale = 1, minimum-scale = 1, width = device-width"]
-              title_ "Blunt \183 Online Haskell pointfree converter"
+                  , content_ "initial-scale = 1, width = device-width"]
+              title_ "Online Haskell pointfree and pointful converter"
               style_ [] Style.style
        body_ $
-           do h1_ "Blunt"
+           do h1_ "Pointfree \8596\65038 Pointful"
               dl_ $
                   do dt_ "Input"
                      dd_ $
@@ -34,21 +33,27 @@ html =
                                 , term "autocapitalize" "none"
                                 , term "autocorrect" "off"]
                      dt_ "Pointfree"
-                     dd_ (div_ [id_ "pointfree"] "")
+                     dd_ (div_ [class_ "output", id_ "pointfree"] "")
                      dt_ "Pointful"
-                     dd_ (div_ [id_ "pointful"] "")
+                     dd_ (div_ [class_ "output", id_ "pointful"] "")
               p_ $
-                  do "Blunt converts Haskell expressions between the pointfree and "
-                     "pointful styles. It is a web front end to the "
+                  do "This page converts Haskell expressions between the pointfree and pointful styles. It is a web front end to the "
                      a_
-                         [href_ "http://hackage.haskell.org/package/pointfree"]
+                         [href_ "https://hackage.haskell.org/package/pointfree"]
                          "pointfree"
                      " and "
                      a_
-                         [href_ "http://hackage.haskell.org/package/pointful"]
+                         [href_ "https://hackage.haskell.org/package/pointful"]
                          "pointful"
-                     " libraries."
+                     " libraries. Read more about the pointfree style on "
+                     a_
+                         [href_ "https://wiki.haskell.org/Pointfree"]
+                         "the Haskell wiki"
+                     "."
               p_ $
-                  do a_ [href_ "https://github.com/tfausak/blunt"] $
-                         do "github.com/tfausak/blunt"
+                  do "Powered by "
+                     a_ [href_ "https://github.com/tfausak/blunt"] "Blunt"
+                     ". Created by "
+                     a_ [href_ "http://taylor.fausak.me"] "Taylor Fausak"
+                     "."
               script_ [] Script.script
