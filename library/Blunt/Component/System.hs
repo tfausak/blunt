@@ -15,11 +15,11 @@ data System = System
     , systemLogs :: Logs.Logs
     , systemMetrics :: Metrics.Metrics
     , systemServer :: Server.Server
-    } 
+    }
 
 instance Common.Component System where
-    type Dependencies System = (Wai.Application)
-    start (application) = do
+    type Dependencies System = ((Logs.Logs, Metrics.Metrics) -> Wai.Application)
+    start (makeApplication) = do
         putStrLn "Starting system..."
         putStrLn "Starting environment..."
         environment <- Common.start ()
@@ -28,7 +28,7 @@ instance Common.Component System where
         putStrLn "Starting metrics..."
         metrics <- Common.start (environment)
         putStrLn "Starting server..."
-        server <- Common.start (environment, logs, metrics, application)
+        server <- Common.start (environment, logs, metrics, makeApplication)
         putStrLn "Started system."
         return
             System

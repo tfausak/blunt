@@ -4,11 +4,13 @@
 module Blunt.App.Application where
 
 import qualified Blunt.App.Markup as Markup
+import qualified Blunt.Component as Component
 import Control.Category ((>>>))
 import qualified Control.Exception as Exception
 import qualified Control.Monad as Monad
 import qualified Data.Aeson as Aeson
 import qualified Data.Aeson.Types as Aeson
+import qualified Data.ByteString.Lazy.Char8 as ByteString
 import Data.Function ((&))
 import qualified Data.List as List
 import qualified Data.Text.Lazy as Text
@@ -20,20 +22,30 @@ import qualified Network.Wai.Handler.WebSockets as WebSockets
 import qualified Network.WebSockets as WebSockets
 import qualified Pointfree as Pointfree
 
-application :: Wai.Application
-application =
-    WebSockets.websocketsOr WebSockets.defaultConnectionOptions ws http
+application :: (Component.Logs, Component.Metrics) -> Wai.Application
+application (logs,metrics) =
+    WebSockets.websocketsOr
+        WebSockets.defaultConnectionOptions
+        (ws logs metrics)
+        http
 
-ws :: WebSockets.ServerApp
-ws pending = do
+ws :: Component.Logs -> Component.Metrics -> WebSockets.ServerApp
+ws logs metrics pending = do
     connection <- WebSockets.acceptRequest pending
     WebSockets.forkPingThread connection 30
     app connection & Monad.forever
   where
     app connection = do
-        message <- WebSockets.receiveData connection
-        result <- convert message
-        result & Aeson.encode & WebSockets.sendTextData connection
+        Component.metricsCounter metrics "server.convert" 1
+        Component.metricsTimed
+            metrics
+            "server.convert_duration_s"
+            (do message <- WebSockets.receiveData connection
+                Component.logsInfo (Text.unpack message) logs
+                result <- convert message
+                let json = Aeson.encode result
+                Component.logsDebug (ByteString.unpack json) logs
+                json & WebSockets.sendTextData connection)
 
 http :: Wai.Application
 http request respond = do

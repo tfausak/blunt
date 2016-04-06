@@ -23,9 +23,10 @@ data Server = Server
     }
 
 instance Common.Component Server where
-    type Dependencies Server = (Environment.Environment, Logs.Logs, Metrics.Metrics, Wai.Application)
-    start (environment,logs,metrics,application) = do
-        let application' = (makeMiddleware logs metrics) application
+    type Dependencies Server = (Environment.Environment, Logs.Logs, Metrics.Metrics, (Logs.Logs, Metrics.Metrics) -> Wai.Application)
+    start (environment,logs,metrics,makeApplication) = do
+        let application =
+                (makeMiddleware logs metrics) (makeApplication (logs, metrics))
         let host =
                 environment & Environment.environmentServerHost &
                 Newtype.unpack
@@ -36,7 +37,7 @@ instance Common.Component Server where
                 Warp.setServerName serverName
         threadId <-
             Concurrent.forkFinally
-                (Warp.runSettings settings application')
+                (Warp.runSettings settings application)
                 (\result ->
                       case result of
                           Left exception -> Exception.throwIO exception
