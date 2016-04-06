@@ -12,6 +12,7 @@ import qualified Control.Concurrent as Concurrent
 import qualified Control.Exception as Exception
 import qualified Control.Newtype as Newtype
 import qualified Data.ByteString.Char8 as ByteString
+import qualified Data.ByteString.Lazy as ByteStringLazy
 import Data.Function ((&))
 import qualified Network.HTTP.Types as HTTP
 import qualified Network.Wai as Wai
@@ -51,7 +52,8 @@ instance Common.Component Server where
 
 makeMiddleware :: Logs.Logs -> Metrics.Metrics -> Wai.Middleware
 makeMiddleware logs metrics =
-    Gzip.gzip Gzip.def >>> logsMiddleware logs >>> metricsMiddleware metrics
+    exceptionMiddleware logs metrics >>>
+    logsMiddleware logs >>> metricsMiddleware metrics >>> Gzip.gzip Gzip.def
 
 logsMiddleware :: Logs.Logs -> Wai.Middleware
 logsMiddleware logs handle request respond = do
@@ -108,3 +110,18 @@ metricsMiddleware metrics handle request respond = do
                              ("server.response_" ++ show code)
                              1
                          respond response))
+
+exceptionMiddleware :: Logs.Logs -> Metrics.Metrics -> Wai.Middleware
+exceptionMiddleware logs metrics handle request respond = do
+    Exception.catch
+        (handle
+             request
+             (\response ->
+                   respond response))
+        (\exception ->
+              do let _ = exception :: Exception.SomeException
+                 Logs.logsError logs (show exception)
+                 Metrics.metricsCounter metrics "server.exception" 1
+                 let response =
+                         Wai.responseLBS HTTP.status500 [] ByteStringLazy.empty
+                 respond response)
