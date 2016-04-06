@@ -7,12 +7,16 @@ import qualified Blunt.Component.Environment as Environment
 import qualified Blunt.Component.Logs as Logs
 import qualified Blunt.Component.Metrics as Metrics
 import qualified Blunt.Version as Version
+import Control.Category ((>>>))
 import qualified Control.Concurrent as Concurrent
+import qualified Control.Exception as Exception
 import qualified Control.Newtype as Newtype
 import qualified Data.ByteString.Char8 as ByteString
 import Data.Function ((&))
+import qualified Network.HTTP.Types as HTTP
 import qualified Network.Wai as Wai
 import qualified Network.Wai.Handler.Warp as Warp
+import qualified Network.Wai.Middleware.Gzip as Gzip
 
 data Server = Server
     { serverThreadId :: Concurrent.ThreadId
@@ -20,7 +24,8 @@ data Server = Server
 
 instance Common.Component Server where
     type Dependencies Server = (Environment.Environment, Logs.Logs, Metrics.Metrics, Wai.Application)
-    start (environment,_logs,_metrics,application) = do
+    start (environment,logs,metrics,application) = do
+        let application' = (makeMiddleware logs metrics) application
         let host =
                 environment & Environment.environmentServerHost &
                 Newtype.unpack
@@ -29,10 +34,76 @@ instance Common.Component Server where
         let settings =
                 Warp.defaultSettings & Warp.setHost host & Warp.setPort port &
                 Warp.setServerName serverName
-        threadId <- application & Warp.runSettings settings & Concurrent.forkIO
+        threadId <-
+            Concurrent.forkFinally
+                (Warp.runSettings settings application')
+                (\result ->
+                      case result of
+                          Left exception -> Exception.throwIO exception
+                          Right value -> return value)
         return
             Server
             { serverThreadId = threadId
             }
     stop server = do
         server & serverThreadId & Concurrent.killThread
+
+makeMiddleware :: Logs.Logs -> Metrics.Metrics -> Wai.Middleware
+makeMiddleware logs metrics =
+    Gzip.gzip Gzip.def >>> logsMiddleware logs >>> metricsMiddleware metrics
+
+logsMiddleware :: Logs.Logs -> Wai.Middleware
+logsMiddleware logs handle request respond = do
+    let logRequest = do
+            let method = ByteString.unpack (Wai.requestMethod request)
+            let path = ByteString.unpack (Wai.rawPathInfo request)
+            let query = ByteString.unpack (Wai.rawQueryString request)
+            let host = show (Wai.remoteHost request)
+            let message =
+                    "Starting " ++
+                    method ++ " " ++ path ++ query ++ " for " ++ host
+            Logs.logsNotice message logs
+            Logs.logsDebug (show request) logs
+    let logResponse response = do
+            let method = ByteString.unpack (Wai.requestMethod request)
+            let path = ByteString.unpack (Wai.rawPathInfo request)
+            let query = ByteString.unpack (Wai.rawQueryString request)
+            let host = show (Wai.remoteHost request)
+            let status = Wai.responseStatus response
+            let code = HTTP.statusCode status
+            let phrase = ByteString.unpack (HTTP.statusMessage status)
+            let message =
+                    "Finished " ++
+                    method ++
+                    " " ++
+                    path ++
+                    query ++
+                    " for " ++ host ++ " with " ++ show code ++ " " ++ phrase
+            if code >= 500
+                then Logs.logsError message logs
+                else if code >= 400
+                         then Logs.logsWarning message logs
+                         else Logs.logsNotice message logs
+    logRequest
+    handle
+        request
+        (\response ->
+              do logResponse response
+                 respond response)
+
+metricsMiddleware :: Metrics.Metrics -> Wai.Middleware
+metricsMiddleware metrics handle request respond = do
+    Metrics.metricsCounter metrics "server.request" 1
+    Metrics.metricsTimed
+        metrics
+        "server.response_duration_s"
+        (do handle
+                request
+                (\response ->
+                      do let status = Wai.responseStatus response
+                         let code = HTTP.statusCode status
+                         Metrics.metricsCounter
+                             metrics
+                             ("server.response_" ++ show code)
+                             1
+                         respond response))
