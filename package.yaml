@@ -1,5 +1,5 @@
 category: Web
-description: Blunt is a web front end to the pointfree and pointful libraries.
+description: Blunt converts between pointfree and pointful expressions.
 executables:
   blunt:
     dependencies:
@@ -13,31 +13,35 @@ extra-source-files:
 - package.yaml
 - README.md
 - stack.yaml
-ghc-options:
-- -Wall
+ghc-options: -Wall
 github: tfausak/blunt
 library:
   dependencies:
-  - base ==4.*
-  - aeson >=0.8 && <0.12
-  - bytestring ==0.10.*
-  - clay ==0.10.*
-  - flow ==1.*
-  - http-types >=0.8 && <0.10
-  - jmacro ==0.6.*
-  - lucid ==2.*
-  - pointfree >=1.1 && <2
-  - pointful >=1.0.6 && <2
-  - text ==1.*
-  - wai ==3.*
-  - wai-extra ==3.*
-  - wai-websockets ==3.*
-  - warp ==3.*
-  - websockets ==0.9.*
-  - wl-pprint-text ==1.*
+  - aeson
+  - autoexporter
+  - base
+  - bytestring
+  - clay
+  - ekg
+  - envy
+  - hslogger
+  - http-types
+  - jmacro
+  - lucid
+  - newtype-generics
+  - pointfree
+  - pointful
+  - signal
+  - text
+  - wai
+  - wai-websockets
+  - warp
+  - websockets
+  - wl-pprint-text
+  other-modules: Paths_blunt
   source-dirs: library
 license: MIT
 maintainer: Taylor Fausak
 name: blunt
-synopsis: Automatically re-export modules.
-version: '1.0.2'
+synopsis: Convert between pointfree and pointful expressions.
+version: '2.0.0'

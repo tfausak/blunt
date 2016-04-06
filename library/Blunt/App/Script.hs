@@ -1,17 +1,19 @@
 {-# LANGUAGE QuasiQuotes #-}
 
-module Blunt.Script where
+module Blunt.App.Script where
 
+import Data.Function ((&))
+import qualified Data.Text.Lazy as Text
 import Language.Javascript.JMacro
+import qualified Text.PrettyPrint.Leijen.Text as PrettyPrint
 
-import Data.Text.Lazy (Text)
-import Text.PrettyPrint.Leijen.Text (displayT, renderOneLine)
-
-script :: Text
-script = displayT (renderOneLine (renderJs js))
+script :: Text.Text
+script = js & renderJs & PrettyPrint.renderOneLine & PrettyPrint.displayT
 
 js :: JStat
-js = [jmacro| \ {
+js = 
+    [jmacro|
+\ {
     var input = document.getElementById("input");
     var pointfree = document.getElementById("pointfree");
     var pointful = document.getElementById("pointful");
@@ -37,4 +39,5 @@ js = [jmacro| \ {
     if (window.location.hash.indexOf("#input=") === 0) {
         input.value = decodeURIComponent(window.location.hash.substring(7));
     }
-}(); |]
+}();
+|]
