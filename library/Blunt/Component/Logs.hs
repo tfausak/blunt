@@ -40,26 +40,26 @@ instance Common.Component Logs where
     stop logs = do
         logs & logsOriginalLogger & Log.saveGlobalLogger
 
-logsDebug :: String -> Logs -> IO ()
-logsDebug message logs = Log.logL (logsLogger logs) Log.DEBUG message
+logsDebug :: Logs -> String -> IO ()
+logsDebug logs message = Log.logL (logsLogger logs) Log.DEBUG message
 
-logsInfo :: String -> Logs -> IO ()
-logsInfo message logs = Log.logL (logsLogger logs) Log.INFO message
+logsInfo :: Logs -> String -> IO ()
+logsInfo logs message = Log.logL (logsLogger logs) Log.INFO message
 
-logsNotice :: String -> Logs -> IO ()
-logsNotice message logs = Log.logL (logsLogger logs) Log.NOTICE message
+logsNotice :: Logs -> String -> IO ()
+logsNotice logs message = Log.logL (logsLogger logs) Log.NOTICE message
 
-logsWarning :: String -> Logs -> IO ()
-logsWarning message logs = Log.logL (logsLogger logs) Log.WARNING message
+logsWarning :: Logs -> String -> IO ()
+logsWarning logs message = Log.logL (logsLogger logs) Log.WARNING message
 
-logsError :: String -> Logs -> IO ()
-logsError message logs = Log.logL (logsLogger logs) Log.ERROR message
+logsError :: Logs -> String -> IO ()
+logsError logs message = Log.logL (logsLogger logs) Log.ERROR message
 
-logsCritical :: String -> Logs -> IO ()
-logsCritical message logs = Log.logL (logsLogger logs) Log.CRITICAL message
+logsCritical :: Logs -> String -> IO ()
+logsCritical logs message = Log.logL (logsLogger logs) Log.CRITICAL message
 
-logsAlert :: String -> Logs -> IO ()
-logsAlert message logs = Log.logL (logsLogger logs) Log.ALERT message
+logsAlert :: Logs -> String -> IO ()
+logsAlert logs message = Log.logL (logsLogger logs) Log.ALERT message
 
-logsEmergency :: String -> Logs -> IO ()
-logsEmergency message logs = Log.logL (logsLogger logs) Log.EMERGENCY message
+logsEmergency :: Logs -> String -> IO ()
+logsEmergency logs message = Log.logL (logsLogger logs) Log.EMERGENCY message

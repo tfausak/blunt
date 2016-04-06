@@ -41,10 +41,10 @@ ws logs metrics pending = do
             metrics
             "server.convert_duration_s"
             (do message <- WebSockets.receiveData connection
-                Component.logsInfo (Text.unpack message) logs
+                Component.logsInfo logs (Text.unpack message)
                 result <- convert message
                 let json = Aeson.encode result
-                Component.logsDebug (ByteString.unpack json) logs
+                Component.logsDebug logs (ByteString.unpack json)
                 json & WebSockets.sendTextData connection)
 
 http :: Wai.Application

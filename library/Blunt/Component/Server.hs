@@ -63,8 +63,8 @@ logsMiddleware logs handle request respond = do
             let message =
                     "Starting " ++
                     method ++ " " ++ path ++ query ++ " for " ++ host
-            Logs.logsNotice message logs
-            Logs.logsDebug (show request) logs
+            Logs.logsNotice logs message
+            Logs.logsDebug logs (show request)
     let logResponse response = do
             let method = ByteString.unpack (Wai.requestMethod request)
             let path = ByteString.unpack (Wai.rawPathInfo request)
@@ -81,10 +81,10 @@ logsMiddleware logs handle request respond = do
                     query ++
                     " for " ++ host ++ " with " ++ show code ++ " " ++ phrase
             if code >= 500
-                then Logs.logsError message logs
+                then Logs.logsError logs message
                 else if code >= 400
-                         then Logs.logsWarning message logs
-                         else Logs.logsNotice message logs
+                         then Logs.logsWarning logs message
+                         else Logs.logsNotice logs message
     logRequest
     handle
         request
