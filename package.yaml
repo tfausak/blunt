@@ -33,6 +33,7 @@ library:
   - newtype-generics ==0.4.1
   - pointfree ==1.1.1.1
   - pointful ==1.0.7
+  - ratel-wai ==0.1.1
   - signal ==0.1.0.3
   - text ==1.2.2.1
   - timeit ==1.0.0.0

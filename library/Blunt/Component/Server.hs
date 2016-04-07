@@ -18,6 +18,7 @@ import qualified Network.HTTP.Types as HTTP
 import qualified Network.Wai as Wai
 import qualified Network.Wai.Handler.Warp as Warp
 import qualified Network.Wai.Middleware.Gzip as Gzip
+import qualified Ratel.Wai as Ratel
 
 data Server = Server
     { serverThreadId :: Concurrent.ThreadId
@@ -27,7 +28,8 @@ instance Common.Component Server where
     type Dependencies Server = (Environment.Environment, Logs.Logs, Metrics.Metrics, (Logs.Logs, Metrics.Metrics) -> Wai.Application)
     start (environment,logs,metrics,makeApplication) = do
         let application =
-                (makeMiddleware logs metrics) (makeApplication (logs, metrics))
+                (makeMiddleware environment logs metrics)
+                    (makeApplication (logs, metrics))
         let host =
                 environment & Environment.environmentServerHost &
                 Newtype.unpack
@@ -50,10 +52,21 @@ instance Common.Component Server where
     stop server = do
         server & serverThreadId & Concurrent.killThread
 
-makeMiddleware :: Logs.Logs -> Metrics.Metrics -> Wai.Middleware
-makeMiddleware logs metrics =
+makeMiddleware :: Environment.Environment
+               -> Logs.Logs
+               -> Metrics.Metrics
+               -> Wai.Middleware
+makeMiddleware environment logs metrics =
+    honeybadgerMiddleware environment >>>
     exceptionMiddleware logs metrics >>>
     logsMiddleware logs >>> metricsMiddleware metrics >>> Gzip.gzip Gzip.def
+
+honeybadgerMiddleware :: Environment.Environment -> Wai.Middleware
+honeybadgerMiddleware environment =
+    let apiKey = Environment.environmentHoneybadgerApiKey environment
+    in if null apiKey
+           then id
+           else Ratel.ratelMiddleware apiKey Nothing
 
 logsMiddleware :: Logs.Logs -> Wai.Middleware
 logsMiddleware logs handle request respond = do

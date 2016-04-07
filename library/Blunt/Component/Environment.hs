@@ -15,7 +15,8 @@ import qualified System.Log.Logger as Log
 import qualified Text.Read as Read
 
 data Environment = Environment
-    { environmentLogsPriority :: Priority
+    { environmentHoneybadgerApiKey :: String
+    , environmentLogsPriority :: Priority
     , environmentMetricsHost :: ByteString.ByteString
     , environmentMetricsPort :: Int
     , environmentServerHost :: Host
@@ -33,7 +34,8 @@ instance Common.Component Environment where
 instance Envy.DefConfig Environment where
     defConfig =
         Environment
-        { environmentLogsPriority = Newtype.pack Log.NOTICE
+        { environmentHoneybadgerApiKey = ""
+        , environmentLogsPriority = Newtype.pack Log.NOTICE
         , environmentMetricsHost = ByteString.pack "127.0.0.1"
         , environmentMetricsPort = 8081
         , environmentServerHost = "127.0.0.1" & String.fromString &
