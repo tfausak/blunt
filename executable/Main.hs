@@ -1,4 +1,3 @@
-import qualified Blunt
+module Main (module Blunt) where
 
-main :: IO ()
-main = Blunt.main
+import Blunt (main)
