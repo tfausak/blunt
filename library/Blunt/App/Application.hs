@@ -21,6 +21,7 @@ import qualified Network.Wai as Wai
 import qualified Network.Wai.Handler.WebSockets as WebSockets
 import qualified Network.WebSockets as WebSockets
 import qualified Pointfree as Pointfree
+import qualified System.Timeout as Timeout
 
 application :: (Component.Logs, Component.Metrics) -> Wai.Application
 application (logs,metrics) =
@@ -42,7 +43,7 @@ ws logs metrics pending = do
             "server.convert_duration_s"
             (do message <- WebSockets.receiveData connection
                 Component.logsInfo logs (Text.unpack message)
-                result <- convert message
+                result <- safeConvert message
                 let json = Aeson.encode result
                 Component.logsDebug logs (ByteString.unpack json)
                 json & WebSockets.sendTextData connection)
@@ -58,6 +59,18 @@ http request respond = do
                           body = Markup.markup
                 _ -> Wai.responseLBS HTTP.notFound404 [] ""
     respond response
+
+safeConvert :: Text.Text -> IO Conversion
+safeConvert message = do
+    result <- Timeout.timeout 100000 (convert message)
+    case result of
+        Nothing ->
+            return
+                Conversion
+                { conversionPointfree = []
+                , conversionPointful = []
+                }
+        Just conversion -> return conversion
 
 convert :: Text.Text -> IO Conversion
 convert message = do
