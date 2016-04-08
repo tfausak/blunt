@@ -22,7 +22,7 @@ css = do
         do boxSizing borderBox
            sym2 margin nil auto
            maxWidth (em 40)
-           sym2 padding nil (em 1.5)
+           padding nil (em 1.5) (em 1.5) (em 1.5)
     h1 ?
         do color "#90a959"
            fontSize (em 2)
