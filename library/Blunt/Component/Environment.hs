@@ -58,9 +58,7 @@ newtype Host =
 instance Newtype.Newtype Host
 
 instance Envy.Var Host where
-    fromVar var = do
-        host <- Read.readMaybe var
-        host & Newtype.pack & return
+    fromVar var = var & String.fromString & Newtype.pack & return
     toVar host = host & Newtype.unpack & show
 
 newtype Priority =
