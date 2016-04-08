@@ -14,4 +14,6 @@ RUN \
   apt-get autoremove --assume-yes --purge && \
   apt-get autoclean --assume-yes
 ENV SERVER_HOST *
+ENV SERVER_PORT 80
+EXPOSE 80
 CMD blunt
