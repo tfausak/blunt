@@ -9,6 +9,7 @@ RUN \
   stack --local-bin-path /usr/local/bin build --copy-bins && \
   cd - && \
   rm -r /code && \
+  rm -r $(stack path --global-stack-root) && \
   apt-get purge --assume-yes stack && \
   apt-get autoremove --assume-yes --purge && \
   apt-get autoclean --assume-yes
