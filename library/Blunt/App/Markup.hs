@@ -4,6 +4,7 @@ module Blunt.App.Markup where
 
 import qualified Blunt.App.Script as Script
 import qualified Blunt.App.Style as Style
+import qualified Blunt.Version as Version
 import qualified Data.ByteString.Lazy as ByteString
 import Lucid
 
@@ -53,6 +54,8 @@ html =
               p_ $
                   do "Powered by "
                      a_ [href_ "https://github.com/tfausak/blunt"] "Blunt"
+                     " version "
+                     Version.versionString
                      ". Created by "
                      a_ [href_ "http://taylor.fausak.me"] "Taylor Fausak"
                      "."
