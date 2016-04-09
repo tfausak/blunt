@@ -18,10 +18,10 @@ html =
            do meta_
                   [ name_ "viewport"
                   , content_ "initial-scale = 1, width = device-width"]
-              title_ "Online Haskell pointfree and pointful converter"
+              title_ "pointfree.info: Online Haskell pointfree and pointful converter"
               style_ [] Style.style
        body_ $
-           do h1_ "Pointfree \8596\65038 Pointful"
+           do h1_ "pointfree.info"
               dl_ $
                   do dt_ "Input"
                      dd_ $
