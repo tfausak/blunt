@@ -13,6 +13,7 @@ extra-source-files:
 - package.yaml
 - README.md
 - stack.yaml
+- static/**/*
 ghc-options: -Wall
 github: tfausak/blunt
 library:
@@ -26,6 +27,7 @@ library:
   - ekg ==0.4.0.9
   - ekg-core ==0.1.1.0
   - envy ==1.1.0.0
+  - file-embed ==0.0.9.1
   - hslogger ==1.2.9
   - http-types ==0.9
   - jmacro ==0.6.13

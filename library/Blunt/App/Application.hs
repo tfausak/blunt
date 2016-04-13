@@ -1,5 +1,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE TemplateHaskell #-}
 
 module Blunt.App.Application where
 
@@ -11,6 +12,7 @@ import qualified Control.Monad as Monad
 import qualified Data.Aeson as Aeson
 import qualified Data.Aeson.Types as Aeson
 import qualified Data.ByteString.Lazy.Char8 as ByteString
+import qualified Data.FileEmbed as FileEmbed
 import Data.Function ((&))
 import qualified Data.List as List
 import qualified Data.Text.Lazy as Text
@@ -57,6 +59,12 @@ http request respond = do
                           headers =
                               [("Content-Type", "text/html; charset=utf-8")]
                           body = Markup.markup
+                ("GET",["favicon.ico"]) -> Wai.responseLBS status headers body
+                    where status = HTTP.ok200
+                          headers = [("Content-Type", "image/x-icon")]
+                          body =
+                              ByteString.fromStrict
+                                  $(FileEmbed.embedFile "static/favicon.ico")
                 _ -> Wai.responseLBS HTTP.notFound404 [] ""
     respond response
 
