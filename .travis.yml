@@ -8,12 +8,13 @@ before_install:
     export PATH="$HOME/.local/bin:$PATH"
     if test ! -f "$HOME/.local/bin/stack"
     then
-      mkdir -p stack
-      cd stack
+      mkdir -p /tmp/stack
+      cd /tmp/stack
       curl --location "https://www.stackage.org/stack/$TRAVIS_OS_NAME-x86_64" > stack.tar.gz
       gunzip stack.tar.gz
       tar -x -f stack.tar --strip-components 1
       cp stack "$HOME/.local/bin/stack"
+      cd -
     fi
 cache:
   directories:
