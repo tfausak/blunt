@@ -39,7 +39,7 @@ library:
   - signal ==0.1.0.3
   - text ==1.2.2.1
   - timeit ==1.0.0.0
-  - wai ==3.2.0.1
+  - wai ==3.2.1
   - wai-extra ==3.0.15
   - wai-websockets ==3.0.0.8
   - warp ==3.2.6
