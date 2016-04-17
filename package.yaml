@@ -49,6 +49,7 @@ library:
   other-modules: Paths_blunt
   source-dirs: library
 license: MIT
+license-file: LICENSE.md
 maintainer: Taylor Fausak
 name: blunt
 synopsis: Convert between pointfree and pointful expressions.
