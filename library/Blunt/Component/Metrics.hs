@@ -2,7 +2,7 @@
 
 module Blunt.Component.Metrics where
 
-import qualified Blunt.Component.Common as Common
+import qualified Bento
 import qualified Blunt.Component.Environment as Environment
 import qualified Control.Concurrent as Concurrent
 import qualified Data.ByteString as ByteString
@@ -25,7 +25,7 @@ data Metrics = Metrics
     , metricsStore :: Metrics.Store
     }
 
-instance Common.Component Metrics where
+instance Bento.Component Metrics where
     type Dependencies Metrics = (Environment.Environment)
     start (environment) = do
         store <- Metrics.newStore

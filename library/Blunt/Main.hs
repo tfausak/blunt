@@ -1,5 +1,6 @@
 module Blunt.Main where
 
+import qualified Bento
 import qualified Blunt.App as App
 import qualified Blunt.Component as Component
 import qualified Control.Concurrent as Concurrent
@@ -12,4 +13,4 @@ main = do
     let handler _signal = Concurrent.putMVar sentinel ()
     Signal.installHandler Signal.sigINT handler
     Concurrent.takeMVar sentinel
-    Component.stop system
+    Bento.stop system

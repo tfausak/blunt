@@ -2,7 +2,7 @@
 
 module Blunt.Component.System where
 
-import qualified Blunt.Component.Common as Common
+import qualified Bento
 import qualified Blunt.Component.Environment as Environment
 import qualified Blunt.Component.Logs as Logs
 import qualified Blunt.Component.Metrics as Metrics
@@ -17,18 +17,18 @@ data System = System
     , systemServer :: Server.Server
     }
 
-instance Common.Component System where
+instance Bento.Component System where
     type Dependencies System = ((Logs.Logs, Metrics.Metrics) -> Wai.Application)
     start (makeApplication) = do
         putStrLn "Starting system..."
         putStrLn "Starting environment..."
-        environment <- Common.start ()
+        environment <- Bento.start ()
         putStrLn "Starting logs..."
-        logs <- Common.start (environment)
+        logs <- Bento.start (environment)
         putStrLn "Starting metrics..."
-        metrics <- Common.start (environment)
+        metrics <- Bento.start (environment)
         putStrLn "Starting server..."
-        server <- Common.start (environment, logs, metrics, makeApplication)
+        server <- Bento.start (environment, logs, metrics, makeApplication)
         putStrLn "Started system."
         return
             System
@@ -40,14 +40,14 @@ instance Common.Component System where
     stop system = do
         putStrLn "Stopping system..."
         putStrLn "Stopping server..."
-        system & systemServer & Common.stop
+        system & systemServer & Bento.stop
         putStrLn "Stopping metrics..."
-        system & systemMetrics & Common.stop
+        system & systemMetrics & Bento.stop
         putStrLn "Stopping logs..."
-        system & systemEnvironment & Common.stop
+        system & systemEnvironment & Bento.stop
         putStrLn "Stopping environment..."
-        system & systemEnvironment & Common.stop
+        system & systemEnvironment & Bento.stop
         putStrLn "Stopped system."
 
-startSystem :: Common.Dependencies System -> IO System
-startSystem dependencies = Common.start dependencies
+startSystem :: Bento.Dependencies System -> IO System
+startSystem dependencies = Bento.start dependencies

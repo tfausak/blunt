@@ -2,7 +2,7 @@
 
 module Blunt.Component.Logs where
 
-import qualified Blunt.Component.Common as Common
+import qualified Bento
 import qualified Blunt.Component.Environment as Environment
 import qualified Control.Newtype as Newtype
 import Data.Function ((&))
@@ -17,7 +17,7 @@ data Logs = Logs
     , logsOriginalLogger :: Log.Logger
     }
 
-instance Common.Component Logs where
+instance Bento.Component Logs where
     type Dependencies Logs = (Environment.Environment)
     start (environment) = do
         originalLogger <- Log.getRootLogger

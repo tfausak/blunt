@@ -3,7 +3,7 @@
 
 module Blunt.Component.Environment where
 
-import qualified Blunt.Component.Common as Common
+import qualified Bento
 import qualified Control.Newtype as Newtype
 import qualified Data.ByteString.Char8 as ByteString
 import Data.Function ((&))
@@ -23,7 +23,7 @@ data Environment = Environment
     , environmentServerPort :: Int
     } deriving (Generics.Generic)
 
-instance Common.Component Environment where
+instance Bento.Component Environment where
     type Dependencies Environment = ()
     start () = do
         result <- Envy.decodeEnv

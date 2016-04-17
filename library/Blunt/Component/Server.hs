@@ -2,7 +2,7 @@
 
 module Blunt.Component.Server where
 
-import qualified Blunt.Component.Common as Common
+import qualified Bento
 import qualified Blunt.Component.Environment as Environment
 import qualified Blunt.Component.Logs as Logs
 import qualified Blunt.Component.Metrics as Metrics
@@ -24,7 +24,7 @@ data Server = Server
     { serverThreadId :: Concurrent.ThreadId
     }
 
-instance Common.Component Server where
+instance Bento.Component Server where
     type Dependencies Server = (Environment.Environment, Logs.Logs, Metrics.Metrics, (Logs.Logs, Metrics.Metrics) -> Wai.Application)
     start (environment,logs,metrics,makeApplication) = do
         let application =
