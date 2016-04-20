@@ -20,7 +20,7 @@ library:
   dependencies:
   - aeson ==0.11.1.4
   - autoexporter ==0.1.4
-  - base ==4.8.2.0
+  - base >=4.8 && <4.10
   - bento ==0.1.0
   - bytestring ==0.10.6.0
   - clay ==0.10.1
