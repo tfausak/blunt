@@ -1,6 +1,5 @@
 extra-deps:
-- bento-0.1.0
 - pointfree-1.1.1.1
 install-ghc: true
 require-stack-version: ! '>=1.0.4'
-resolver: nightly-2016-04-17
+resolver: nightly-2016-05-25

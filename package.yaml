@@ -18,8 +18,8 @@ ghc-options: -Wall
 github: tfausak/blunt
 library:
   dependencies:
-  - aeson ==0.11.1.4
-  - autoexporter ==0.1.4
+  - aeson ==0.11.2.0
+  - autoexporter ==0.2.2
   - base >=4.8 && <4.10
   - bento ==0.1.0
   - bytestring ==0.10.6.0
@@ -28,7 +28,7 @@ library:
   - ekg ==0.4.0.9
   - ekg-core ==0.1.1.0
   - envy ==1.1.0.0
-  - file-embed ==0.0.9.1
+  - file-embed ==0.0.10
   - hslogger ==1.2.9
   - http-types ==0.9
   - jmacro ==0.6.13
@@ -36,13 +36,13 @@ library:
   - newtype-generics ==0.4.1
   - pointfree ==1.1.1.1
   - pointful ==1.0.7
-  - ratel-wai ==0.1.1
+  - ratel-wai ==0.1.2
   - signal ==0.1.0.3
   - text ==1.2.2.1
   - timeit ==1.0.0.0
-  - wai ==3.2.1
-  - wai-extra ==3.0.15
-  - wai-websockets ==3.0.0.8
+  - wai ==3.2.1.1
+  - wai-extra ==3.0.15.1
+  - wai-websockets ==3.0.0.9
   - warp ==3.2.6
   - websockets ==0.9.6.1
   - wl-pprint-text ==1.1.0.4
