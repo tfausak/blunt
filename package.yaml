@@ -53,4 +53,4 @@ license-file: LICENSE.md
 maintainer: Taylor Fausak
 name: blunt
 synopsis: Convert between pointfree and pointful expressions.
-version: '2.0.4'
+version: '2.0.5'
